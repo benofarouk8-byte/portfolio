@@ -1,76 +1,98 @@
-# Farouk Benouali — Software Engineer Portfolio
+<div align="center">
 
-A modern, responsive, trilingual portfolio website engineered for **Farouk Benouali**, Full-Stack & Flutter Mobile/Desktop Developer from Aïn Témouchent, Algeria.
+<img src="assets/farouk.jpg" width="110" style="border-radius:50%;" alt="Farouk Benouali"/>
 
-## 🌟 Key Features
+# Farouk Benouali
 
-- **Obsidian Black & Dark Crimson Theme**: High-contrast, tech-refined aesthetic with custom glowing accents and ambient mesh gradients.
-- **Dark & Light Mode**: Smooth transition between dark mode and clean light mode, persisting preference in `localStorage`.
-- **Trilingual Localization (EN / FR / AR)**:
-  - **English (EN)**
-  - **Français (FR)**
-  - **العربية (AR)**: Dynamic Right-To-Left (`dir="rtl"`) layout flipping, with Cairo/Rubik typography for native Arabic glyphs.
-- **Embedded Real Photo & Visuals**: High-resolution profile portrait with animated glowing frame and status badges.
-- **Interactive Project Showcase**:
-  - Filter tabs: All, Full-Stack & Web, Flutter & Desktop, AI & Data Pipelines.
-  - Interactive deep-dive modal for each project detailing the challenge, technical architecture, and highlights.
-  - Direct links to GitHub repositories (`https://github.com/benofarouk8-byte`).
-  - Bundled interactive live demos (`demos/winwin-mini.html`, `demos/medfinder.html` and `demos/scarlet.html`) testable directly from the portfolio.
-- **Fully Responsive**: Fluid layout for phones, tablets, laptops and large screens, with a mobile menu and active-section highlighting in the nav.
-- **Working Contact Form**: After pressing Send, the visitor can send the prepared message with Gmail, their mail app, or copy it. One-click email copy button with toast notification (`benofarouk8@gmail.com`) and social links to LinkedIn and GitHub.
+**Full-Stack Web & PC Desktop Software Engineer** · Aïn Témouchent, Algeria 🇩🇿
+
+[![Live Site](https://img.shields.io/badge/Live-benofarouk8--byte.github.io-C41E3A?style=flat-square)](https://benofarouk8-byte.github.io/portfolio/)
+[![Email](https://img.shields.io/badge/Email-benofarouk8%40gmail.com-181717?style=flat-square&logo=gmail&logoColor=white)](mailto:benofarouk8@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-farouk--benouali-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/farouk-benouali-151a0231b/)
+[![GitHub](https://img.shields.io/badge/GitHub-benofarouk8--byte-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/benofarouk8-byte)
+
+</div>
 
 ---
 
-## 📁 Project Structure
+This is the source for my personal portfolio — a single-page site I built to showcase the full-stack, desktop and data projects below. It runs fully client-side (no framework, no build step beyond plain HTML/CSS/JS), ships in English, French and Arabic with proper RTL support, and switches between a dark "obsidian & crimson" theme and a light theme.
 
-```
-farouk-portfolio/
-│
-├── index.html                 # Semantic, accessible HTML5 single-page application
-├── styles.css                 # CSS custom properties, RTL support, dark/light theme
-├── script.js                  # i18n dictionaries, theme engine, project modal logic
-├── assets/
-│   ├── farouk.jpg             # High-res profile portrait
-│   └── medfinder-preview.jpg  # Project visual
-├── demos/
-│   ├── winwin-mini.html       # Standalone interactive WinWin DZ demo
-│   ├── medfinder.html         # Standalone MedFinder demo
-│   └── scarlet.html           # Standalone Scarlet voice assistant demo (notes, timer, calculator, music)
-└── README.md                  # Documentation and deployment guide
-```
+**→ [View it live](https://benofarouk8-byte.github.io/portfolio/)**
+*(enable GitHub Pages under Settings → Pages → Branch: `main` if the link above isn't live yet)*
 
 ---
 
-## 🚀 How to Run Locally
+## Featured projects
 
-### Option 1: Direct File Opening
-Double-click `index.html` in file explorer to open it in Chrome, Edge, Firefox, or Safari.
+| Project | Category | What it does |
+|---|---|---|
+| **WinWin DZ** | Full-Stack & Web | Marketplace where people post problems and local pros bid to solve them — Algeria-focused. |
+| **Retail POS & Inventory Suite** | Desktop | Offline-first point-of-sale and stock management app for small retail shops. |
+| **[MedFinder](demos/medfinder.html)** | AI & Data | Looks up drug alternatives using the openFDA API — try the live demo in `demos/`. |
+| **Lycée Ahmed Belhadj Said ERP** | Desktop | School management system covering grades, schedules and student records. |
+| **[SCARLET](demos/scarlet.html)** | AI & Data | In-browser voice assistant — notes, timer, calculator and music, controlled by voice. |
+| **CampusConnect DZ & StudyLab** | Full-Stack & Web | Student ecosystem pairing a campus social network with a study/resource hub. |
+| **3D Building Visualizer** | Full-Stack & Web | Interactive 3D spatial viewer for architectural building models. |
 
-### Option 2: Local HTTP Server (Python / Node / VS Code)
-Using Python:
+Each project has its own deep-dive on the live site (challenge, architecture, highlights), and three of them (`winwin-mini`, `medfinder`, `scarlet`) ship as standalone demos you can open directly from `/demos`.
+
+---
+
+## Built with
+
+<p>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black"/>
+<img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white"/>
+<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"/>
+</p>
+
+- **Frontend:** HTML5, CSS3 (custom properties, RTL), JavaScript (ES6+), React, Tailwind CSS
+- **Backend:** Node.js, REST APIs, SQLite, offline-first patterns
+- **Tooling:** Git/GitHub, Vite, Web Speech API
+
+---
+
+## Repo layout
+
+```
+portfolio/
+├── index.html                 # the site — single-page, semantic HTML5
+├── styles.css                 # theming, RTL, dark/light mode
+├── script.js                  # i18n strings, theme switcher, project data/modals
+├── assets/                    # profile photo + project images
+└── demos/                     # standalone, runnable project demos
+    ├── winwin-mini.html
+    ├── medfinder.html
+    └── scarlet.html
+```
+
+## Running it locally
+
 ```bash
+# simplest: just open it
+open index.html          # or double-click it
+
+# or serve it (recommended for the demos to behave correctly)
 python -m http.server 3000
 ```
-Then open `http://localhost:3000` in your browser.
 
-Using VS Code:
-Right-click `index.html` and click **"Open with Live Server"**.
+Then visit `http://localhost:3000`.
+
+## Deploying your own copy
+
+- **GitHub Pages** — Settings → Pages → Branch `main` → Save. Free, zero config.
+- **Vercel** — `vercel` from this folder, or import the repo at [vercel.com](https://vercel.com).
+- **Netlify** — drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
 
 ---
 
-## 🌐 Free 1-Click Deployment Options
+<div align="center">
 
-### 1. GitHub Pages
-1. Push this folder to your GitHub repository: `https://github.com/benofarouk8-byte/portfolio`
-2. Go to **Settings** → **Pages**.
-3. Under **Branch**, select `main` (root) and click **Save**.
-4. Your site will be live at: `https://benofarouk8-byte.github.io/portfolio/`
+📩 **[benofarouk8@gmail.com](mailto:benofarouk8@gmail.com)** · 💼 **[LinkedIn](https://www.linkedin.com/in/farouk-benouali-151a0231b/)** · 🐙 **[GitHub](https://github.com/benofarouk8-byte)**
 
-### 2. Vercel
-1. Install Vercel CLI (`npm i -g vercel`) or visit [vercel.com](https://vercel.com).
-2. Run `vercel` in this folder or link your GitHub repository.
-3. Instant deployment with automatic HTTPS and custom domain support.
-
-### 3. Netlify
-Drag and drop this entire folder into [app.netlify.com/drop](https://app.netlify.com/drop) for instant deployment.
-
+</div>
