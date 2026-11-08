@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinWin — Find someone who can help</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens ---------- */
+:root{
+  --paper:#FAF7EF;
+  --paper-2:#F1ECDF;
+  --ink:#16231C;
+  --ink-soft:#5C6B62;
+  --line:#DDD5C0;
+  --green:#0F6B4F;
+  --green-deep:#0B4E3A;
+  --green-tint:#E4EFE8;
+  --amber:#E29A2E;
+  --amber-tint:#FBEDD4;
+  --coral:#D14B3B;
+  --coral-tint:#F9E0DB;
+  --card:#FFFFFF;
+  --shadow: 0 1px 2px rgba(22,35,28,.06), 0 8px 24px rgba(22,35,28,.07);
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+  --font-latin: 'Google Sans Flex', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-ui: 'Rubik', -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121814;
+    --paper-2:#182018;
+    --ink:#EDEFE9;
+    --ink-soft:#9AA69C;
+    --line:#2B342D;
+    --green:#3FBE8F;
+    --green-deep:#8FE0BE;
+    --green-tint:#16281F;
+    --amber:#E8B25A;
+    --amber-tint:#2A2113;
+    --coral:#E8776A;
+    --coral-tint:#2C1815;
+    --card:#182018;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121814;
+  --paper-2:#182018;
+  --ink:#EDEFE9;
+  --ink-soft:#9AA69C;
+  --line:#2B342D;
+  --green:#3FBE8F;
+  --green-deep:#8FE0BE;
+  --green-tint:#16281F;
+  --amber:#E8B25A;
+  --amber-tint:#2A2113;
+  --coral:#E8776A;
+  --coral-tint:#2C1815;
+  --card:#182018;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  transition:background .2s ease;
+}
+html[dir="ltr"] body{ font-family:var(--font-ui); }
+h1,h2,h3,.display{ font-family:var(--font-latin); letter-spacing:-.01em; }
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .display{
+  font-family:'Rubik', var(--font-ui); font-weight:800; letter-spacing:0;
+}
+img,svg{max-width:100%;display:block;}
+button{font-family:inherit;}
+a{color:inherit;}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px;}
+
+/* ---------- Header ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-block-end:1px solid var(--line);
+}
+.topbar-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-block:14px; gap:14px;
+}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15rem; cursor:pointer; background:none; border:none; padding:0; color:var(--ink);}
+.brand-mark{
+  width:34px;height:34px;border-radius:10px;background:var(--green);
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.05rem; flex-shrink:0;
+}
+.nav-actions{display:flex; align-items:center; gap:8px;}
+.lang-switch{display:flex; gap:4px; background:var(--paper-2); border-radius:999px; padding:4px;}
+.lang-switch button{
+  border:none; background:transparent; padding:6px 12px; border-radius:999px;
+  font-size:.8rem; font-weight:700; color:var(--ink-soft); cursor:pointer;
+}
+.lang-switch button.active{background:var(--card); color:var(--green); box-shadow:var(--shadow);}
+.admin-link{
+  border:1px solid var(--line); background:transparent; color:var(--ink-soft);
+  padding:8px 14px; border-radius:999px; font-size:.85rem; font-weight:600; cursor:pointer;
+}
+.admin-link:hover{color:var(--ink); border-color:var(--ink-soft);}
+
+/* ---------- Hero ---------- */
+.hero{padding-block:44px 30px;}
+.hero-grid{display:grid; gap:28px; grid-template-columns:1fr;}
+@media(min-width:900px){ .hero-grid{grid-template-columns:1.1fr .9fr; align-items:start;} }
+.eyebrow-free{ } /* intentionally no eyebrow label, per design guidance */
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem); line-height:1.1; margin:0 0 14px;}
+.hero p.sub{color:var(--ink-soft); font-size:1.05rem; line-height:1.55; max-width:46ch; margin:0 0 26px;}
+
+.formcard{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:22px; box-shadow:var(--shadow);
+}
+.field{margin-block-end:16px;}
+.field label{display:block; font-size:.82rem; font-weight:700; color:var(--ink-soft); margin-block-end:6px;}
+textarea, select, input[type=text]{
+  width:100%; border:1.5px solid var(--line); border-radius:var(--radius-sm);
+  padding:11px 13px; font-size:.98rem; font-family:inherit; color:var(--ink);
+  background:var(--paper); resize:vertical;
+}
+textarea{min-height:88px; line-height:1.45;}
+textarea:focus, select:focus, input:focus{outline:2px solid var(--green); outline-offset:1px; border-color:var(--green);}
+.row2{display:grid; grid-template-columns:1fr; gap:14px;}
+@media(min-width:520px){ .row2{grid-template-columns:1fr 1fr;} }
+.chiprow{display:flex; flex-wrap:wrap; gap:8px;}
+.chip{
+  border:1.5px solid var(--line); background:var(--paper); padding:8px 14px; border-radius:999px;
+  font-size:.85rem; font-weight:600; cursor:pointer; color:var(--ink); display:flex; align-items:center; gap:6px;
+}
+.chip.selected{border-color:var(--green); background:var(--green-tint); color:var(--green-deep);}
+.actions-row{display:flex; flex-wrap:wrap; gap:10px; margin-block-start:18px;}
+.btn{
+  border:none; border-radius:999px; padding:13px 22px; font-size:.95rem; font-weight:700;
+  cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:transform .12s ease, filter .12s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--green); color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--ink-soft);}
+.btn-emergency{background:var(--coral-tint); color:var(--coral); border:1.5px solid transparent;}
+.btn-emergency:hover{filter:brightness(1.05);}
+.btn-block{width:100%; justify-content:center;}
+.btn-sm{padding:8px 14px; font-size:.82rem;}
+
+/* preview card in hero */
+.preview{
+  background:var(--green-deep); color:#fff; border-radius:var(--radius-lg);
+  padding:22px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+}
+.preview small{opacity:.75; font-weight:700; font-size:.75rem;}
+.preview .quote{font-size:1.05rem; line-height:1.5; margin-block:10px 16px; font-weight:600;}
+.preview-card{
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+  border-radius:var(--radius-md); padding:14px; display:flex; gap:12px; align-items:center;
+}
+.ring{
+  --pct:0; width:56px; height:56px; border-radius:50%; flex-shrink:0;
+  background:conic-gradient(#fff calc(var(--pct)*1%), rgba(255,255,255,.22) 0);
+  display:flex; align-items:center; justify-content:center;
+}
+.ring-inner{
+  width:42px; height:42px; border-radius:50%; background:var(--green-deep);
+  display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:800;
+}
+.pv-name{font-weight:800; font-size:1rem;}
+.pv-meta{font-size:.8rem; opacity:.85; margin-block-start:2px;}
+
+/* ---------- Categories ---------- */
+.section{padding-block:34px;}
+.section h2{font-size:1.4rem; margin:0 0 16px;}
+.cat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+@media(min-width:640px){ .cat-grid{grid-template-columns:repeat(4,1fr);} }
+.cat-tile{
+  background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius-md);
+  padding:16px 12px; text-align:center; cursor:pointer;
+}
+.cat-tile:hover{border-color:var(--green);}
+.cat-tile .icon{font-size:1.7rem; margin-block-end:8px;}
+.cat-tile .label{font-size:.82rem; font-weight:700;}
+
+/* ---------- Results ---------- */
+.analysis{
+  display:flex; flex-wrap:wrap; gap:10px; margin-block-end:22px;
+}
+.tag{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:999px;
+  padding:8px 14px; font-size:.82rem; font-weight:700; display:flex; gap:6px; align-items:center;
+}
+.tag .k{color:var(--ink-soft); font-weight:600;}
+.tag.urg-high{background:var(--coral-tint); color:var(--coral); border-color:transparent;}
+.tag.urg-medium{background:var(--amber-tint); color:#8a5c10; border-color:transparent;}
+.tag.urg-low{background:var(--green-tint); color:var(--green-deep); border-color:transparent;}
+
+.pro-list{display:grid; gap:14px;}
+.pro-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:18px; display:grid; grid-template-columns:64px 1fr; gap:14px; box-shadow:var(--shadow);
+}
+@media(min-width:640px){ .pro-card{grid-template-columns:64px 1fr auto; align-items:center;} }
+.pro-ring{ --pct:0; width:60px; height:60px; }
+.pro-ring .ring-inner{ width:46px;height:46px; background:var(--card); color:var(--green-deep); }
+.pro-ring{ background:conic-gradient(var(--green) calc(var(--pct)*1%), var(--paper-2) 0); }
+.pro-main h3{margin:0 0 4px; font-size:1.05rem;}
+.pro-meta{display:flex; flex-wrap:wrap; gap:10px; font-size:.83rem; color:var(--ink-soft); margin-block-end:8px;}
+.pro-meta b{color:var(--ink); font-weight:700;}
+.avail-badge{font-size:.76rem; font-weight:700; padding:3px 10px; border-radius:999px;}
+.avail-now{background:var(--green-tint); color:var(--green-deep);}
+.avail-today{background:var(--amber-tint); color:#8a5c10;}
+.avail-tomorrow{background:var(--paper-2); color:var(--ink-soft);}
+.pro-actions{display:flex; gap:8px; flex-wrap:wrap;}
+.verified-pin{color:var(--green); font-weight:700; font-size:.8rem; display:inline-flex; gap:4px; align-items:center;}
+
+/* emergency banner */
+.emg-banner{
+  background:var(--coral-tint); color:var(--coral); border-radius:var(--radius-md);
+  padding:14px 18px; font-weight:700; display:flex; align-items:center; gap:10px; margin-block-end:20px;
+}
+
+/* active job strip */
+.job-strip{
+  position:sticky; top:64px; z-index:30; background:var(--green); color:#fff;
+  border-radius:var(--radius-md); padding:12px 16px; margin-block-end:18px;
+  display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; box-shadow:var(--shadow);
+}
+.job-strip strong{font-weight:800;}
+
+/* ---------- Modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(10,16,12,.55); display:flex; align-items:flex-end;
+  justify-content:center; z-index:100; padding:0;
+}
+@media(min-width:640px){ .modal-overlay{align-items:center; padding:20px;} }
+.modal{
+  background:var(--card); width:100%; max-width:560px; border-radius:20px 20px 0 0;
+  padding:26px; max-height:88vh; overflow-y:auto; box-shadow:var(--shadow);
+  animation:rise .22s ease-out;
+}
+@media(min-width:640px){ .modal{border-radius:var(--radius-lg);} }
+@keyframes rise{ from{transform:translateY(16px); opacity:0;} to{transform:translateY(0); opacity:1;} }
+.modal-close{
+  position:absolute; inset-inline-end:18px; inset-block-start:18px; border:none; background:var(--paper-2);
+  width:32px;height:32px;border-radius:50%; cursor:pointer; font-size:1rem; color:var(--ink-soft);
+}
+.modal h3{margin:0 0 6px; font-size:1.25rem;}
+.modal .sub{color:var(--ink-soft); font-size:.92rem; margin-block-end:18px;}
+.spinner{
+  width:34px;height:34px; border-radius:50%; border:3px solid var(--paper-2); border-top-color:var(--green);
+  animation:spin .8s linear infinite; margin-block-end:16px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.offer-box{
+  background:var(--green-tint); border-radius:var(--radius-md); padding:16px; margin-block-end:18px;
+  font-size:1rem; font-weight:700; color:var(--green-deep);
+}
+.stars{display:flex; gap:6px; font-size:2rem; margin-block-end:18px; cursor:pointer;}
+.stars span{opacity:.3; transition:opacity .12s;}
+.stars span.on{opacity:1;}
+.checklist{display:grid; gap:10px; margin-block-end:20px;}
+.checklist label{display:flex; align-items:center; gap:10px; font-size:.92rem; cursor:pointer;}
+.checklist input{width:18px;height:18px; accent-color:var(--green);}
+
+/* profile modal specifics */
+.profile-head{display:flex; gap:14px; align-items:center; margin-block-end:18px;}
+.avatar-badge{
+  width:56px;height:56px; border-radius:16px; background:var(--green-tint); color:var(--green-deep);
+  display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; font-weight:800;
+}
+.profile-tags{display:flex; gap:14px; flex-wrap:wrap; font-size:.85rem; color:var(--ink-soft); margin-block-end:16px;}
+.svc-list{display:flex; flex-wrap:wrap; gap:8px; margin-block-end:18px;}
+.svc-pill{background:var(--paper-2); border-radius:999px; padding:6px 12px; font-size:.82rem; font-weight:600;}
+.review{
+  border-top:1px solid var(--line); padding-block:12px; font-size:.9rem;
+}
+.review:first-of-type{border-top:none;}
+.review .stars-mini{color:var(--amber); font-size:.85rem; margin-block-end:4px;}
+
+/* ---------- Dashboard ---------- */
+.stat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+@media(min-width:720px){ .stat-grid{grid-template-columns:repeat(5,1fr);} }
+.stat-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md); padding:16px;}
+.stat-card .num{font-size:1.6rem; font-weight:800; font-family:var(--font-latin);}
+.stat-card .lbl{font-size:.78rem; color:var(--ink-soft); font-weight:600; margin-block-start:2px;}
+.list-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md); padding:16px; margin-block-start:22px;}
+.list-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding-block:10px; border-block-end:1px solid var(--line); flex-wrap:wrap;}
+.list-row:last-child{border-block-end:none;}
+.status-pill{font-size:.76rem; font-weight:700; background:var(--amber-tint); color:#8a5c10; padding:4px 10px; border-radius:999px;}
+
+/* footer */
+footer{border-block-start:1px solid var(--line); padding-block:26px; margin-block-start:40px;}
+footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; color:var(--ink-soft); font-size:.82rem;}
+
+.empty{text-align:center; padding-block:40px; color:var(--ink-soft);}
+.toast{
+  position:fixed; inset-inline:0; inset-block-end:22px; display:flex; justify-content:center; z-index:120; pointer-events:none;
+}
+.toast-inner{
+  background:var(--ink); color:var(--paper); padding:12px 20px; border-radius:999px; font-size:.88rem; font-weight:600;
+  box-shadow:var(--shadow); opacity:0; transform:translateY(8px); transition:all .25s ease;
+}
+.toast-inner.show{opacity:1; transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modalRoot"></div>
+<div class="toast" id="toastRoot"><div class="toast-inner" id="toastInner"></div></div>
+
+<script>
+/* =========================================================
+   WINWIN MINI — client-side demo prototype
+   All data is fictional/demo. No backend, no real payments.
+   State persists per-browser via localStorage (see STORE_KEYS).
+========================================================= */
+
+/* ---------------- Data ---------------- */
+const CATEGORIES = ['home','elec','ac','car','pc','clean','tutor','move'];
+const CAT_ICON = {home:'🔧',elec:'⚡',ac:'❄️',car:'🚗',pc:'💻',clean:'🧹',tutor:'📚',move:'📦'};
+const CITIES = ['algiers','oran','blida','constantine','annaba','setif','tlemcen','bechar'];
+
+const PROS = [
+  {id:'p1',  name:'Ahmed Benaa',      cat:'home', city:'algiers',     rating:4.6, jobs:98,  verified:true,  dist:3.2, avail:'today',    pMin:2500, pMax:4500, resp:20, rev:[0,2]},
+  {id:'p2',  name:'Karim Rénov',      cat:'home', city:'oran',        rating:4.3, jobs:54,  verified:false, dist:6.1, avail:'tomorrow', pMin:3000, pMax:6000, resp:45, rev:[1]},
+
+  {id:'p3',  name:'Sofiane Elec',     cat:'elec', city:'algiers',     rating:4.8, jobs:143, verified:true,  dist:2.4, avail:'now',      pMin:2000, pMax:4000, resp:10, rev:[0,3]},
+  {id:'p4',  name:'Nadir Courant',    cat:'elec', city:'blida',       rating:4.5, jobs:76,  verified:true,  dist:4.0, avail:'today',    pMin:2500, pMax:5000, resp:25, rev:[2]},
+
+  {id:'p5',  name:'Ahmed Clim',       cat:'ac',   city:'blida',       rating:4.9, jobs:127, verified:true,  dist:2.1, avail:'today',    pMin:3000, pMax:5000, resp:10, rev:[0,3]},
+  {id:'p6',  name:'Samir Services',   cat:'ac',   city:'blida',       rating:4.7, jobs:88,  verified:true,  dist:3.5, avail:'now',      pMin:4000, pMax:6000, resp:5,  rev:[1,2]},
+  {id:'p7',  name:'Yacine Tech',      cat:'ac',   city:'blida',       rating:4.8, jobs:102, verified:true,  dist:5.2, avail:'tomorrow', pMin:3500, pMax:5500, resp:30, rev:[0]},
+
+  {id:'p8',  name:'Riad Auto',        cat:'car',  city:'oran',        rating:4.4, jobs:61,  verified:true,  dist:5.5, avail:'today',    pMin:2000, pMax:8000, resp:30, rev:[2,3]},
+  {id:'p9',  name:'Hicham Garage',    cat:'car',  city:'constantine', rating:4.2, jobs:39,  verified:false, dist:7.8, avail:'tomorrow', pMin:2500, pMax:7000, resp:60, rev:[1]},
+
+  {id:'p10', name:'Walid PC',         cat:'pc',   city:'algiers',     rating:4.7, jobs:115, verified:true,  dist:1.8, avail:'now',      pMin:1500, pMax:4000, resp:15, rev:[0,2]},
+  {id:'p11', name:'Islem Tech',       cat:'pc',   city:'annaba',      rating:4.5, jobs:67,  verified:true,  dist:4.5, avail:'today',    pMin:1500, pMax:3500, resp:20, rev:[3]},
+
+  {id:'p12', name:'Amina Clean',      cat:'clean',city:'algiers',     rating:4.6, jobs:90,  verified:true,  dist:2.9, avail:'now',      pMin:1500, pMax:3000, resp:15, rev:[0,1]},
+  {id:'p13', name:'Ikram Ménage',     cat:'clean',city:'setif',       rating:4.4, jobs:52,  verified:true,  dist:5.0, avail:'today',    pMin:1500, pMax:3000, resp:20, rev:[2]},
+
+  {id:'p14', name:'Yasmine Cours',    cat:'tutor',city:'algiers',     rating:4.9, jobs:132, verified:true,  dist:3.0, avail:'today',    pMin:1000, pMax:2500, resp:30, rev:[0,3]},
+  {id:'p15', name:'Mehdi Prof',       cat:'tutor',city:'tlemcen',     rating:4.3, jobs:44,  verified:true,  dist:6.4, avail:'tomorrow', pMin:1000, pMax:2000, resp:45, rev:[1]},
+
+  {id:'p16', name:'Sofiane Move',     cat:'move', city:'oran',        rating:4.5, jobs:70,  verified:true,  dist:4.2, avail:'today',    pMin:4000, pMax:9000, resp:40, rev:[2,3]},
+  {id:'p17', name:'Yacine Transport', cat:'move', city:'bechar',      rating:4.1, jobs:28,  verified:false, dist:8.5, avail:'tomorrow', pMin:5000, pMax:10000,resp:60, rev:[0]},
+];
+
+const SERVICES_BY_CAT = {
+  home:['plumbing','painting','doors_windows'], elec:['wiring','outlets','breaker'],
+  ac:['ac_repair','ac_install','ac_maint'], car:['engine','tires','battery'],
+  pc:['screen_repair','virus_removal','setup'], clean:['home_clean','deep_clean','post_work'],
+  tutor:['math','languages','exam_prep'], move:['furniture','packing','small_moves'],
+};
+
+const KEYWORDS = {
+  home:{en:['leak','door','window','wall','paint','pipe','faucet','plumb'],fr:['fuite','porte','fenêtre','mur','peinture','tuyau','robinet'],ar:['تسرب','باب','نافذة','حائط','صباغة','أنبوب','حنفية']},
+  elec:{en:['electric','wiring','socket','power','outage','breaker','short circuit'],fr:['électri','câblage','prise','courant','panne','disjoncteur'],ar:['كهرباء','أسلاك','مقبس','تيار','انقطاع','قاطع']},
+  ac:{en:['ac','air condition','cooling','cold','heater','heating','fridge','refrigerator','freezer','not cooling'],fr:['clim','climatis','froid','chauffage','réfrigér','congélateur'],ar:['تكييف','كولمان','برودة','تدفئة','ثلاجة','فريزر','ما يبردش','لا يبرد']},
+  car:{en:['car','engine','tire','brake','battery','vehicle'],fr:['voiture','moteur','pneu','frein','batterie'],ar:['سيارة','محرك','عجلة','فرامل','بطارية']},
+  pc:{en:['laptop','computer','phone','screen','virus','software','pc'],fr:['ordinateur','téléphone','écran','virus','logiciel'],ar:['كمبيوتر','حاسوب','هاتف','شاشة','فيروس','برنامج']},
+  clean:{en:['clean','housekeeping','dust'],fr:['ménage','nettoyage','poussière'],ar:['تنظيف','نظافة','غبار']},
+  tutor:{en:['tutor','lesson','math','study','homework','teacher'],fr:['cours','leçon','maths','étude','devoir'],ar:['درس','دروس','رياضيات','دراسة','واجب','أستاذ']},
+  move:{en:['move','moving','relocation','furniture transport'],fr:['déménage','transport meuble'],ar:['نقل','عفش','ترحيل']},
+};
+const URGENT_WORDS = {en:['urgent','emergency','asap','immediately','right now'],fr:['urgent','urgence','tout de suite','immédiat'],ar:['عاجل','فوري','ضروري','الحين','دروري']};
+
+/* ---------------- Strings ---------------- */
+const STR = {
+en:{
+  appName:'WinWin', tagline:'Find someone who can help',
+  heroTitle:'Describe your problem. WinWin finds who can fix it.',
+  heroSub:'Tell us what\'s wrong in your own words — no forms to fill, no categories to guess. We match you with nearby verified professionals in seconds.',
+  describeLabel:'What do you need help with?', describePh:'e.g. My washing machine is making a strange noise',
+  locationLabel:'Location', whenLabel:'When', budgetLabel:'Budget (optional)', budgetPh:'e.g. 3000–5000 DA',
+  orCategory:'Or pick a category', findBtn:'Find help', helpNowBtn:'Need help now?',
+  when_now:'Now', when_today:'Today', when_tomorrow:'Tomorrow', when_flexible:'Flexible',
+  previewTag:'Example match', previewQuote:'"My air conditioner is not cooling and I live in Blida."', previewMeta:'Blida · 2.1 km · Today',
+  categoriesTitle:'Browse by category',
+  resultsTitle:'Professionals for you', resultsSub:'Ranked by fit, distance, rating and availability.',
+  analysisCategory:'Category', analysisProblem:'Problem', analysisUrgency:'Urgency',
+  urgency_high:'High', urgency_medium:'Medium', urgency_low:'Low',
+  emgBanner:'Showing professionals available right now', noResults:'No professionals match yet — try another category.',
+  back:'Back', matchLabel:'match', kmAway:'km away', respondsIn:'responds in {n} min',
+  viewProfile:'View profile', requestService:'Request service', verified:'Verified',
+  jobsDone:'{n} completed jobs', typicalPrice:'Typical price', servicesTitle:'Services', reviewsTitle:'Reviews',
+  closeBtn:'Close',
+  sendingTitle:'Sending your request…', sendingSub:'{name} is reviewing the details.',
+  offerTitle:'You have an offer', offerLine:'{name} can come {when} for {price} DA.', accept:'Accept offer', decline:'Decline',
+  onTheWay:'{name} is on it', completeBtn:'Mark as complete',
+  rateTitle:'How was the service?', chkTime:'Arrived on time?', chkPrice:'Price was fair?', chkSolved:'Problem solved?',
+  submitRating:'Submit', thanksTitle:'Thanks for the feedback!', thanksSub:'This helps other people find good help too.', doneBtn:'Done',
+  adminLink:'Admin', dashboardTitle:'Admin dashboard',
+  statUsers:'Users', statPros:'Professionals', statRequests:'Requests', statCompleted:'Completed jobs', statRating:'Avg. rating',
+  pendingTitle:'Pending verification', verifyBtn:'Verify', underReview:'Under review',
+  reportedTitle:'Reported providers', dismissBtn:'Dismiss', suspendBtn:'Suspend', suspended:'Suspended',
+  reportedName:'Yacine Services', reportedReason:'Poor service',
+  footerNote:'Prototype for Algeria · Demo data only', footerCredit:'WinWin — a concept for finding local help, fast.',
+  home:'Home',
+  toastSent:'Request sent', toastAccepted:'Offer accepted', toastVerified:'Provider verified', toastDismissed:'Report dismissed', toastSuspended:'Provider suspended',
+},
+fr:{
+  appName:'WinWin', tagline:'Trouvez quelqu\'un qui peut vous aider',
+  heroTitle:'Décrivez votre problème. WinWin trouve qui peut le résoudre.',
+  heroSub:'Expliquez ce qui ne va pas avec vos propres mots — pas de formulaire, pas de catégorie à deviner. Nous vous mettons en contact avec des professionnels vérifiés à proximité en quelques secondes.',
+  describeLabel:'De quelle aide avez-vous besoin ?', describePh:'ex. Ma machine à laver fait un bruit étrange',
+  locationLabel:'Localisation', whenLabel:'Quand', budgetLabel:'Budget (optionnel)', budgetPh:'ex. 3000–5000 DA',
+  orCategory:'Ou choisissez une catégorie', findBtn:'Trouver de l\'aide', helpNowBtn:'Besoin d\'aide maintenant ?',
+  when_now:'Maintenant', when_today:'Aujourd\'hui', when_tomorrow:'Demain', when_flexible:'Flexible',
+  previewTag:'Exemple de mise en relation', previewQuote:'« Mon climatiseur ne refroidit plus et j\'habite à Blida. »', previewMeta:'Blida · 2,1 km · Aujourd\'hui',
+  categoriesTitle:'Parcourir par catégorie',
+  resultsTitle:'Des professionnels pour vous', resultsSub:'Classés selon la pertinence, la distance, la note et la disponibilité.',
+  analysisCategory:'Catégorie', analysisProblem:'Problème', analysisUrgency:'Urgence',
+  urgency_high:'Élevée', urgency_medium:'Moyenne', urgency_low:'Faible',
+  emgBanner:'Professionnels disponibles maintenant', noResults:'Aucun professionnel pour l\'instant — essayez une autre catégorie.',
+  back:'Retour', matchLabel:'compatibilité', kmAway:'km', respondsIn:'répond en {n} min',
+  viewProfile:'Voir le profil', requestService:'Demander le service', verified:'Vérifié',
+  jobsDone:'{n} interventions réalisées', typicalPrice:'Prix habituel', servicesTitle:'Services', reviewsTitle:'Avis',
+  closeBtn:'Fermer',
+  sendingTitle:'Envoi de votre demande…', sendingSub:'{name} examine les détails.',
+  offerTitle:'Vous avez une offre', offerLine:'{name} peut venir {when} pour {price} DA.', accept:'Accepter l\'offre', decline:'Refuser',
+  onTheWay:'{name} s\'en occupe', completeBtn:'Marquer comme terminé',
+  rateTitle:'Comment était le service ?', chkTime:'Arrivé à l\'heure ?', chkPrice:'Prix correct ?', chkSolved:'Problème résolu ?',
+  submitRating:'Envoyer', thanksTitle:'Merci pour votre avis !', thanksSub:'Cela aide d\'autres personnes à trouver de l\'aide.', doneBtn:'Terminé',
+  adminLink:'Admin', dashboardTitle:'Tableau de bord admin',
+  statUsers:'Utilisateurs', statPros:'Professionnels', statRequests:'Demandes', statCompleted:'Missions terminées', statRating:'Note moyenne',
+  pendingTitle:'En attente de vérification', verifyBtn:'Vérifier', underReview:'En cours d\'examen',
+  reportedTitle:'Prestataires signalés', dismissBtn:'Ignorer', suspendBtn:'Suspendre', suspended:'Suspendu',
+  reportedName:'Yacine Services', reportedReason:'Service médiocre',
+  footerNote:'Prototype pour l\'Algérie · Données de démonstration', footerCredit:'WinWin — trouver de l\'aide locale, rapidement.',
+  home:'Accueil',
+  toastSent:'Demande envoyée', toastAccepted:'Offre acceptée', toastVerified:'Prestataire vérifié', toastDismissed:'Signalement ignoré', toastSuspended:'Prestataire suspendu',
+},
+ar:{
+  appName:'وين وين', tagline:'اعثر على من يمكنه مساعدتك',
+  heroTitle:'صف مشكلتك، ونحن نجد من يحلّها.',
+  heroSub:'اكتب مشكلتك بكلماتك الخاصة — بدون استمارات معقدة وبدون تخمين التصنيف. نطابقك مع محترفين موثوقين قريبين منك في ثوانٍ.',
+  describeLabel:'بماذا تحتاج المساعدة؟', describePh:'مثال: الغسالة تصدر صوتًا غريبًا',
+  locationLabel:'الموقع', whenLabel:'الوقت', budgetLabel:'الميزانية (اختياري)', budgetPh:'مثال: 3000–5000 دج',
+  orCategory:'أو اختر تصنيفًا', findBtn:'ابحث عن مساعدة', helpNowBtn:'تحتاج مساعدة الآن؟',
+  when_now:'الآن', when_today:'اليوم', when_tomorrow:'غدًا', when_flexible:'مرن',
+  previewTag:'مثال على المطابقة', previewQuote:'«جهاز التكييف لا يبرد وأنا في البليدة.»', previewMeta:'البليدة · 2.1 كم · اليوم',
+  categoriesTitle:'تصفح حسب التصنيف',
+  resultsTitle:'محترفون مناسبون لك', resultsSub:'مرتبون حسب التوافق والمسافة والتقييم والتوفر.',
+  analysisCategory:'التصنيف', analysisProblem:'المشكلة', analysisUrgency:'درجة الإلحاح',
+  urgency_high:'مرتفعة', urgency_medium:'متوسطة', urgency_low:'منخفضة',
+  emgBanner:'يتم عرض المحترفين المتوفرين الآن', noResults:'لا يوجد محترفون مطابقون حاليًا — جرّب تصنيفًا آخر.',
+  back:'رجوع', matchLabel:'التوافق', kmAway:'كم', respondsIn:'يرد خلال {n} د',
+  viewProfile:'عرض الملف', requestService:'طلب الخدمة', verified:'موثّق',
+  jobsDone:'{n} مهمة مكتملة', typicalPrice:'السعر المعتاد', servicesTitle:'الخدمات', reviewsTitle:'التقييمات',
+  closeBtn:'إغلاق',
+  sendingTitle:'جارٍ إرسال طلبك…', sendingSub:'{name} يطّلع على التفاصيل.',
+  offerTitle:'لديك عرض', offerLine:'يمكن لـ {name} أن يأتي {when} بسعر {price} دج.', accept:'قبول العرض', decline:'رفض',
+  onTheWay:'{name} في الطريق', completeBtn:'وضع علامة مكتمل',
+  rateTitle:'كيف كانت الخدمة؟', chkTime:'حضر في الوقت المحدد؟', chkPrice:'السعر كان مناسبًا؟', chkSolved:'تم حل المشكلة؟',
+  submitRating:'إرسال', thanksTitle:'شكرًا على رأيك!', thanksSub:'هذا يساعد أشخاصًا آخرين في العثور على مساعدة جيدة.', doneBtn:'تم',
+  adminLink:'الإدارة', dashboardTitle:'لوحة تحكم الإدارة',
+  statUsers:'المستخدمون', statPros:'المحترفون', statRequests:'الطلبات', statCompleted:'المهام المكتملة', statRating:'التقييم المتوسط',
+  pendingTitle:'قيد التحقق', verifyBtn:'توثيق', underReview:'قيد المراجعة',
+  reportedTitle:'مزودون تمت الشكوى منهم', dismissBtn:'تجاهل', suspendBtn:'تعليق', suspended:'معلَّق',
+  reportedName:'ياسين سيرفيس', reportedReason:'خدمة سيئة',
+  footerNote:'نموذج تجريبي للجزائر · بيانات تجريبية فقط', footerCredit:'وين وين — إيجاد مساعدة محلية بسرعة.',
+  home:'الرئيسية',
+  toastSent:'تم إرسال الطلب', toastAccepted:'تم قبول العرض', toastVerified:'تم توثيق المزوّد', toastDismissed:'تم تجاهل الشكوى', toastSuspended:'تم تعليق المزوّد',
+}};
+
+const CAT_NAME = {
+en:{home:'Home Repair',elec:'Electricity',ac:'AC & Heating',car:'Car',pc:'Computer & Phone',clean:'Cleaning',tutor:'Tutoring',move:'Moving'},
+fr:{home:'Réparation maison',elec:'Électricité',ac:'Climatisation',car:'Voiture',pc:'Informatique & Téléphone',clean:'Ménage',tutor:'Cours particuliers',move:'Déménagement'},
+ar:{home:'إصلاحات منزلية',elec:'كهرباء',ac:'تكييف وتدفئة',car:'سيارات',pc:'كمبيوتر وهاتف',clean:'تنظيف',tutor:'دروس خصوصية',move:'نقل عفش'}};
+
+const CITY_NAME = {
+en:{algiers:'Algiers',oran:'Oran',blida:'Blida',constantine:'Constantine',annaba:'Annaba',setif:'Sétif',tlemcen:'Tlemcen',bechar:'Béchar'},
+fr:{algiers:'Alger',oran:'Oran',blida:'Blida',constantine:'Constantine',annaba:'Annaba',setif:'Sétif',tlemcen:'Tlemcen',bechar:'Béchar'},
+ar:{algiers:'الجزائر',oran:'وهران',blida:'البليدة',constantine:'قسنطينة',annaba:'عنابة',setif:'سطيف',tlemcen:'تلمسان',bechar:'بشار'}};
+
+const SERVICE_NAME = {
+en:{plumbing:'Plumbing',painting:'Painting',doors_windows:'Doors & windows',wiring:'Wiring',outlets:'Outlets',breaker:'Breaker panel',
+  ac_repair:'AC repair',ac_install:'AC installation',ac_maint:'AC maintenance',engine:'Engine',tires:'Tires',battery:'Battery',
+  screen_repair:'Screen repair',virus_removal:'Virus removal',setup:'Setup & support',home_clean:'Home cleaning',deep_clean:'Deep cleaning',post_work:'Post-renovation clean',
+  math:'Math',languages:'Languages',exam_prep:'Exam prep',furniture:'Furniture',packing:'Packing',small_moves:'Small moves'},
+fr:{plumbing:'Plomberie',painting:'Peinture',doors_windows:'Portes & fenêtres',wiring:'Câblage',outlets:'Prises',breaker:'Tableau électrique',
+  ac_repair:'Réparation clim',ac_install:'Installation clim',ac_maint:'Entretien clim',engine:'Moteur',tires:'Pneus',battery:'Batterie',
+  screen_repair:'Réparation écran',virus_removal:'Suppression virus',setup:'Installation & support',home_clean:'Ménage',deep_clean:'Nettoyage en profondeur',post_work:'Nettoyage après travaux',
+  math:'Mathématiques',languages:'Langues',exam_prep:'Préparation examens',furniture:'Meubles',packing:'Emballage',small_moves:'Petits déménagements'},
+ar:{plumbing:'سباكة',painting:'صباغة',doors_windows:'أبواب ونوافذ',wiring:'أسلاك كهربائية',outlets:'مقابس',breaker:'لوحة القواطع',
+  ac_repair:'تصليح تكييف',ac_install:'تركيب تكييف',ac_maint:'صيانة تكييف',engine:'المحرك',tires:'العجلات',battery:'البطارية',
+  screen_repair:'تصليح الشاشة',virus_removal:'إزالة الفيروسات',setup:'تركيب ودعم',home_clean:'تنظيف المنزل',deep_clean:'تنظيف عميق',post_work:'تنظيف بعد الأشغال',
+  math:'الرياضيات',languages:'اللغات',exam_prep:'التحضير للامتحانات',furniture:'الأثاث',packing:'التغليف',small_moves:'نقل صغير'}};
+
+const REVIEWS = {
+en:['Arrived on time and fixed the problem.','Professional and fast service.','Fair price, would recommend.','Very polite and explained everything clearly.'],
+fr:['Arrivé à l\'heure et a résolu le problème.','Service professionnel et rapide.','Prix correct, je recommande.','Très poli et a tout bien expliqué.'],
+ar:['حضر في الوقت المحدد وحل المشكلة.','خدمة محترفة وسريعة.','السعر مناسب، أنصح به.','لطيف جدًا وشرح كل شيء بوضوح.']};
+
+/* ---------------- Storage ---------------- */
+const STORE_KEYS = {lang:'winwin_lang', session:'winwin_session'};
+function loadSession(){
+  try{
+    const raw = localStorage.getItem(STORE_KEYS.session);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {completed:0, ratingsSum:0, ratingsCount:0, extraReviews:{}, verifiedOverride:{}, reportDismissed:false, reportSuspended:false};
+}
+function saveSession(){ try{ localStorage.setItem(STORE_KEYS.session, JSON.stringify(session)); }catch(e){} }
+let session = loadSession();
+
+/* ---------------- State ---------------- */
+let lang = 'ar';
+try{
+  const savedLang = localStorage.getItem(STORE_KEYS.lang);
+  if(savedLang) lang = savedLang;
+  else{
+    const nav = (navigator.language||'ar').toLowerCase();
+    lang = nav.startsWith('fr') ? 'fr' : nav.startsWith('en') ? 'en' : 'ar';
+  }
+}catch(e){}
+
+let view = 'home'; // home | results | dashboard
+let form = {desc:'', city:'algiers', when:'today', budget:'', cat:null, emergencyOnly:false};
+let lastResults = null; // {list, cat, urgency}
+let activeJob = null; // {proId, stage: sending|offer|inprogress, price, etaLabel}
+let modal = null; // {type:'sending'|'offer'|'rate'|'profile', proId}
+let ratingDraft = {stars:0, onTime:true, priceFair:true, solved:true};
+
+function t(key, params){
+  let s = (STR[lang] && STR[lang][key] !== undefined) ? STR[lang][key] : (STR.en[key]||key);
+  if(params){ Object.keys(params).forEach(k=>{ s = s.replace('{'+k+'}', params[k]); }); }
+  return s;
+}
+function esc(str){ const d=document.createElement('div'); d.textContent = str==null?'':String(str); return d.innerHTML; }
+
+/* ---------------- Logic: matching ---------------- */
+function detectCategory(text){
+  const low = (text||'').toLowerCase();
+  if(!low.trim()) return null;
+  for(const cat of CATEGORIES){
+    const dict = KEYWORDS[cat];
+    for(const l of ['en','fr','ar']){
+      if(dict[l].some(w => low.includes(w.toLowerCase()))) return cat;
+    }
+  }
+  return null;
+}
+function detectUrgency(text){
+  const low = (text||'').toLowerCase();
+  for(const l of ['en','fr','ar']){
+    if(URGENT_WORDS[l].some(w => low.includes(w.toLowerCase()))) return 'high';
+  }
+  return low.trim() ? 'medium' : 'low';
+}
+function isVerified(pro){
+  if(session.verifiedOverride[pro.id]) return true;
+  return pro.verified;
+}
+function scorePro(pro, req){
+  const compat = req.cat ? (pro.cat === req.cat ? 1 : 0.22) : 0.55;
+  const distScore = Math.max(0, 1 - pro.dist/12);
+  const ratingScore = pro.rating/5;
+  let availScore;
+  if(req.when === 'now') availScore = pro.avail==='now' ? 1 : (pro.avail==='today' ? 0.45 : 0.1);
+  else if(req.when === 'today') availScore = (pro.avail==='now'||pro.avail==='today') ? 1 : 0.4;
+  else if(req.when === 'tomorrow') availScore = pro.avail==='tomorrow' ? 1 : 0.7;
+  else availScore = 1;
+  const score = 0.4*compat + 0.25*distScore + 0.2*ratingScore + 0.15*availScore;
+  return Math.max(1, Math.min(99, Math.round(score*100)));
+}
+function computeResults(req){
+  let pool = PROS.slice();
+  if(req.emergencyOnly){
+    const now = pool.filter(p=>p.avail==='now');
+    pool = now.length ? now : pool;
+  }
+  const scored = pool.map(p=>({pro:p, score:scorePro(p, req)})).sort((a,b)=>b.score-a.score);
+  return scored.slice(0,3);
+}
+
+/* ---------------- Admin computed stats ---------------- */
+function adminStats(){
+  const baseUsers=248, basePros=63, baseReq=417, baseCompleted=289, baseAvg=4.6;
+  const completed = baseCompleted + session.completed;
+  const requests = baseReq + session.completed;
+  const users = baseUsers + session.completed;
+  const totalRatingPoints = baseAvg*baseCompleted + session.ratingsSum;
+  const totalRatingCount = baseCompleted + session.ratingsCount;
+  const avg = totalRatingCount ? (totalRatingPoints/totalRatingCount) : baseAvg;
+  return {users, pros:basePros, requests, completed, avg: Math.round(avg*10)/10};
+}
+
+/* ---------------- Toast ---------------- */
+function toast(msg){
+  const el = document.getElementById('toastInner');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+/* ---------------- Rendering ---------------- */
+function render(){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang==='ar' ? 'rtl' : 'ltr';
+  const app = document.getElementById('app');
+  app.innerHTML = renderHeader() + renderMain() + renderFooter();
+  renderModal();
+  bindEvents();
+}
+
+function renderHeader(){
+  return `
+  <div class="topbar"><div class="wrap topbar-inner">
+    <button class="brand" data-action="goHome"><span class="brand-mark">🤝</span>${esc(t('appName'))}</button>
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button data-action="setLang" data-lang="ar" class="${lang==='ar'?'active':''}">AR</button>
+        <button data-action="setLang" data-lang="fr" class="${lang==='fr'?'active':''}">FR</button>
+        <button data-action="setLang" data-lang="en" class="${lang==='en'?'active':''}">EN</button>
+      </div>
+      <button class="admin-link" data-action="goDashboard">${esc(t('adminLink'))}</button>
+    </div>
+  </div></div>`;
+}
+
+function renderFooter(){
+  return `<footer><div class="wrap">
+    <span>${esc(t('footerCredit'))}</span>
+    <span>${esc(t('footerNote'))}</span>
+  </div></footer>`;
+}
+
+function renderJobStrip(){
+  if(!activeJob || activeJob.stage!=='inprogress') return '';
+  const pro = PROS.find(p=>p.id===activeJob.proId);
+  return `<div class="wrap"><div class="job-strip">
+    <span>🚗 ${t('onTheWay',{name:esc(pro.name)})}</span>
+    <button class="btn btn-primary btn-sm" data-action="completeJob">${esc(t('completeBtn'))}</button>
+  </div></div>`;
+}
+
+function renderMain(){
+  if(view==='dashboard') return renderDashboard();
+  if(view==='results') return renderJobStrip() + renderResults();
+  return renderJobStrip() + renderHome();
+}
+
+/* ---- Home / hero ---- */
+function renderHome(){
+  const chips = CATEGORIES.map(c=>`
+    <button class="chip ${form.cat===c?'selected':''}" data-action="toggleCat" data-cat="${c}">
+      <span>${CAT_ICON[c]}</span>${esc(CAT_NAME[lang][c])}
+    </button>`).join('');
+  const cityOptions = CITIES.map(c=>`<option value="${c}" ${form.city===c?'selected':''}>${esc(CITY_NAME[lang][c])}</option>`).join('');
+  const whenOptions = ['now','today','tomorrow','flexible'].map(w=>`<option value="${w}" ${form.when===w?'selected':''}>${esc(t('when_'+w))}</option>`).join('');
+  const catTiles = CATEGORIES.map(c=>`
+    <div class="cat-tile" data-action="pickCatAndGo" data-cat="${c}">
+      <div class="icon">${CAT_ICON[c]}</div>
+      <div class="label">${esc(CAT_NAME[lang][c])}</div>
+    </div>`).join('');
+
+  return `
+  <section class="hero"><div class="wrap hero-grid">
+    <div>
+      <h1>${esc(t('heroTitle'))}</h1>
+      <p class="sub">${esc(t('heroSub'))}</p>
+      <div class="formcard">
+        <div class="field">
+          <label>${esc(t('describeLabel'))}</label>
+          <textarea id="descInput" placeholder="${esc(t('describePh'))}">${esc(form.desc)}</textarea>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>${esc(t('locationLabel'))}</label>
+            <select id="citySelect">${cityOptions}</select>
+          </div>
+          <div class="field">
+            <label>${esc(t('whenLabel'))}</label>
+            <select id="whenSelect">${whenOptions}</select>
+          </div>
+        </div>
+        <div class="field">
+          <label>${esc(t('budgetLabel'))}</label>
+          <input type="text" id="budgetInput" placeholder="${esc(t('budgetPh'))}" value="${esc(form.budget)}">
+        </div>
+        <div class="field">
+          <label>${esc(t('orCategory'))}</label>
+          <div class="chiprow">${chips}</div>
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-primary" data-action="submitRequest">${esc(t('findBtn'))}</button>
+          <button class="btn btn-emergency" data-action="submitEmergency">🚨 ${esc(t('helpNowBtn'))}</button>
+        </div>
+      </div>
+    </div>
+    <div class="preview">
+      <small>${esc(t('previewTag'))}</small>
+      <div class="quote">${esc(t('previewQuote'))}</div>
+      <div class="preview-card">
+        <div class="ring" style="--pct:94"><div class="ring-inner">94%</div></div>
+        <div>
+          <div class="pv-name">Ahmed Clim</div>
+          <div class="pv-meta">⭐ 4.9 · ${esc(t('previewMeta'))}</div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <h2>${esc(t('categoriesTitle'))}</h2>
+    <div class="cat-grid">${catTiles}</div>
+  </div></section>`;
+}
+
+/* ---- Results ---- */
+function renderResults(){
+  if(!lastResults) return renderHome();
+  const {list, cat, urgency, emergencyOnly, problemText} = lastResults;
+  const catLabel = cat ? esc(CAT_NAME[lang][cat]) : esc(t('categoriesTitle'));
+  const urgClass = 'urg-'+urgency;
+
+  const cards = list.map(({pro,score})=>{
+    const availClass = pro.avail==='now' ? 'avail-now' : pro.avail==='today' ? 'avail-today' : 'avail-tomorrow';
+    return `
+    <div class="pro-card">
+      <div class="pro-ring" style="--pct:${score}"><div class="ring-inner">${score}%</div></div>
+      <div class="pro-main">
+        <h3>${esc(pro.name)} ${isVerified(pro)?`<span class="verified-pin">✅</span>`:''}</h3>
+        <div class="pro-meta">
+          <span>⭐ <b>${pro.rating}</b></span>
+          <span>📍 <b>${pro.dist}</b> ${esc(t('kmAway'))}</span>
+          <span><b>${pro.pMin.toLocaleString()}–${pro.pMax.toLocaleString()}</b> DA</span>
+          <span class="avail-badge ${availClass}">${esc(t('when_'+(pro.avail==='now'?'now':pro.avail)))}</span>
+        </div>
+      </div>
+      <div class="pro-actions">
+        <button class="btn btn-ghost btn-sm" data-action="openProfile" data-pro="${pro.id}">${esc(t('viewProfile'))}</button>
+        <button class="btn btn-primary btn-sm" data-action="requestService" data-pro="${pro.id}">${esc(t('requestService'))}</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<section class="section"><div class="wrap">
+    <button class="btn btn-ghost btn-sm" data-action="goHome" style="margin-block-end:16px;">${esc(t('back'))}</button>
+    ${emergencyOnly ? `<div class="emg-banner">🚨 ${esc(t('emgBanner'))}</div>` : ''}
+    <h2>${esc(t('resultsTitle'))}</h2>
+    <p style="color:var(--ink-soft); margin-block-start:-8px; margin-block-end:20px;">${esc(t('resultsSub'))}</p>
+    <div class="analysis">
+      <span class="tag"><span class="k">${esc(t('analysisCategory'))}:</span> ${catLabel}</span>
+      ${problemText ? `<span class="tag"><span class="k">${esc(t('analysisProblem'))}:</span> ${esc(problemText.length>60?problemText.slice(0,60)+'…':problemText)}</span>` : ''}
+      <span class="tag ${urgClass}"><span class="k">${esc(t('analysisUrgency'))}:</span> ${esc(t('urgency_'+urgency))}</span>
+    </div>
+    ${list.length ? `<div class="pro-list">${cards}</div>` : `<div class="empty">${esc(t('noResults'))}</div>`}
+  </div></section>`;
+}
+
+/* ---- Dashboard ---- */
+function renderDashboard(){
+  const s = adminStats();
+  const pending = PROS.filter(p=>!isVerified(p));
+  const pendingRows = pending.map(p=>`
+    <div class="list-row">
+      <div><b>${esc(p.name)}</b> — ${esc(CAT_NAME[lang][p.cat])} <span class="status-pill">${esc(t('underReview'))}</span></div>
+      <button class="btn btn-primary btn-sm" data-action="verifyPro" data-pro="${p.id}">${esc(t('verifyBtn'))}</button>
+    </div>`).join('') || `<div class="empty">—</div>`;
+
+  const reportSuspended = session.reportSuspended;
+  const reportDismissed = session.reportDismissed;
+  let reportedBlock;
+  if(reportSuspended){
+    reportedBlock = `<div class="list-row"><div><b>${esc(t('reportedName'))}</b></div><span class="status-pill">${esc(t('suspended'))}</span></div>`;
+  } else if(reportDismissed){
+    reportedBlock = `<div class="empty">—</div>`;
+  } else {
+    reportedBlock = `<div class="list-row">
+      <div><b>${esc(t('reportedName'))}</b> — ${esc(t('reportedReason'))}</div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-ghost btn-sm" data-action="dismissReport">${esc(t('dismissBtn'))}</button>
+        <button class="btn btn-emergency btn-sm" data-action="suspendReport">${esc(t('suspendBtn'))}</button>
+      </div>
+    </div>`;
+  }
+
+  return `<section class="section"><div class="wrap">
+    <button class="btn btn-ghost btn-sm" data-action="goHome" style="margin-block-end:16px;">${esc(t('back'))}</button>
+    <h2>${esc(t('dashboardTitle'))}</h2>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">${s.users.toLocaleString()}</div><div class="lbl">${esc(t('statUsers'))}</div></div>
+      <div class="stat-card"><div class="num">${s.pros.toLocaleString()}</div><div class="lbl">${esc(t('statPros'))}</div></div>
+      <div class="stat-card"><div class="num">${s.requests.toLocaleString()}</div><div class="lbl">${esc(t('statRequests'))}</div></div>
+      <div class="stat-card"><div class="num">${s.completed.toLocaleString()}</div><div class="lbl">${esc(t('statCompleted'))}</div></div>
+      <div class="stat-card"><div class="num">${s.avg}</div><div class="lbl">${esc(t('statRating'))}</div></div>
+    </div>
+    <div class="list-card"><h3 style="margin-block-start:0;">${esc(t('pendingTitle'))}</h3>${pendingRows}</div>
+    <div class="list-card"><h3 style="margin-block-start:0;">${esc(t('reportedTitle'))}</h3>${reportedBlock}</div>
+  </div></section>`;
+}
+
+/* ---- Modals ---- */
+function renderModal(){
+  const root = document.getElementById('modalRoot');
+  if(!modal){ root.innerHTML=''; return; }
+
+  if(modal.type==='profile'){
+    const pro = PROS.find(p=>p.id===modal.proId);
+    const svc = SERVICES_BY_CAT[pro.cat].map(s=>`<span class="svc-pill">${esc(SERVICE_NAME[lang][s])}</span>`).join('');
+    const baseReviews = pro.rev.map(i=>({text:REVIEWS[lang][i], stars:5}));
+    const extra = (session.extraReviews[pro.id]||[]).map(r=>({text:REVIEWS[lang][r.textIdx]||REVIEWS[lang][0], stars:r.stars}));
+    const allReviews = extra.concat(baseReviews);
+    const reviewsHtml = allReviews.map(r=>`
+      <div class="review"><div class="stars-mini">${'⭐'.repeat(r.stars)}</div>${esc(r.text)}</div>`).join('') || `<div class="empty">—</div>`;
+    root.innerHTML = `
+    <div class="modal-overlay" data-action="closeModalBg">
+      <div class="modal" role="dialog" aria-modal="true">
+        <button class="modal-close" data-action="closeModal">✕</button>
+        <div class="profile-head">
+          <div class="avatar-badge">${CAT_ICON[pro.cat]}</div>
+          <div>
+            <h3>${esc(pro.name)} ${isVerified(pro)?`<span class="verified-pin">✅ ${esc(t('verified'))}</span>`:''}</h3>
+            <div>⭐ ${pro.rating} · ${esc(t('jobsDone',{n:pro.jobs}))}</div>
+          </div>
+        </div>
+        <div class="profile-tags">
+          <span>📍 ${esc(CITY_NAME[lang][pro.city])} · ${pro.dist} ${esc(t('kmAway'))}</span>
+          <span>🕒 ${esc(t('respondsIn',{n:pro.resp}))}</span>
+        </div>
+        <h3 style="font-size:1rem;">${esc(t('servicesTitle'))}</h3>
+        <div class="svc-list">${svc}</div>
+        <h3 style="font-size:1rem;">${esc(t('typicalPrice'))}</h3>
+        <p style="margin-block-start:0;">${pro.pMin.toLocaleString()}–${pro.pMax.toLocaleString()} DA</p>
+        <h3 style="font-size:1rem;">${esc(t('reviewsTitle'))}</h3>
+        ${reviewsHtml}
+        <div class="actions-row">
+          <button class="btn btn-primary btn-block" data-action="requestService" data-pro="${pro.id}">${esc(t('requestService'))}</button>
+        </div>
+      </div>
+    </div>`;
+    return;
+  }
+
+  if(modal.type==='job'){
+    const pro = PROS.find(p=>p.id===activeJob.proId);
+    if(activeJob.stage==='sending'){
+      root.innerHTML = `
+      <div class="modal-overlay">
+        <div class="modal" role="dialog" aria-modal="true" style="text-align:center;">
+          <div class="spinner" style="margin-inline:auto;"></div>
+          <h3>${esc(t('sendingTitle'))}</h3>
+          <p class="sub">${esc(t('sendingSub',{name:pro.name}))}</p>
+        </div>
+      </div>`;
+      return;
+    }
+    if(activeJob.stage==='offer'){
+      root.innerHTML = `
+      <div class="modal-overlay" data-action="closeModalBg">
+        <div class="modal" role="dialog" aria-modal="true">
+          <button class="modal-close" data-action="closeModal">✕</button>
+          <h3>${esc(t('offerTitle'))}</h3>
+          <div class="offer-box">${esc(t('offerLine',{name:pro.name, when:t('when_'+pro.avail).toLowerCase(), price:activeJob.price.toLocaleString()}))}</div>
+          <div class="actions-row">
+            <button class="btn btn-primary" data-action="acceptOffer">${esc(t('accept'))}</button>
+            <button class="btn btn-ghost" data-action="closeModal">${esc(t('decline'))}</button>
+          </div>
+        </div>
+      </div>`;
+      return;
+    }
+  }
+
+  if(modal.type==='rate'){
+    const stars = [1,2,3,4,5].map(n=>`<span class="${ratingDraft.stars>=n?'on':''}" data-action="setStar" data-n="${n}">⭐</span>`).join('');
+    root.innerHTML = `
+    <div class="modal-overlay">
+      <div class="modal" role="dialog" aria-modal="true">
+        <h3>${esc(t('rateTitle'))}</h3>
+        <div class="stars">${stars}</div>
+        <div class="checklist">
+          <label><input type="checkbox" data-action="toggleChk" data-k="onTime" ${ratingDraft.onTime?'checked':''}> ${esc(t('chkTime'))}</label>
+          <label><input type="checkbox" data-action="toggleChk" data-k="priceFair" ${ratingDraft.priceFair?'checked':''}> ${esc(t('chkPrice'))}</label>
+          <label><input type="checkbox" data-action="toggleChk" data-k="solved" ${ratingDraft.solved?'checked':''}> ${esc(t('chkSolved'))}</label>
+        </div>
+        <button class="btn btn-primary btn-block" data-action="submitRating">${esc(t('submitRating'))}</button>
+      </div>
+    </div>`;
+    return;
+  }
+
+  if(modal.type==='thanks'){
+    root.innerHTML = `
+    <div class="modal-overlay">
+      <div class="modal" role="dialog" aria-modal="true" style="text-align:center;">
+        <div style="font-size:2.4rem;">🎉</div>
+        <h3>${esc(t('thanksTitle'))}</h3>
+        <p class="sub">${esc(t('thanksSub'))}</p>
+        <button class="btn btn-primary btn-block" data-action="closeModal">${esc(t('doneBtn'))}</button>
+      </div>
+    </div>`;
+    return;
+  }
+}
+
+/* ---------------- Event handling (delegated — bound once, never re-attached) ---------------- */
+function bindEvents(){ /* kept as no-op call site for clarity; real binding happens once below */ }
+
+function onAction(e){
+  const el = e.currentTarget;
+  const action = el.getAttribute('data-action');
+  switch(action){
+    case 'setLang':
+      lang = el.getAttribute('data-lang');
+      try{ localStorage.setItem(STORE_KEYS.lang, lang); }catch(err){}
+      render(); break;
+    case 'goHome': view='home'; render(); break;
+    case 'goDashboard': view='dashboard'; render(); break;
+    case 'toggleCat':{
+      const c = el.getAttribute('data-cat');
+      form.cat = (form.cat===c) ? null : c;
+      render(); break;
+    }
+    case 'pickCatAndGo':{
+      form.cat = el.getAttribute('data-cat');
+      doSubmit(false);
+      break;
+    }
+    case 'submitRequest': doSubmit(false); break;
+    case 'submitEmergency': doSubmit(true); break;
+    case 'openProfile': modal = {type:'profile', proId:el.getAttribute('data-pro')}; renderModal(); bindEvents(); break;
+    case 'closeModal': case 'closeModalBg':
+      if(action==='closeModalBg' && e.target !== el) return;
+      modal = null; renderModal(); break;
+    case 'requestService':{
+      const proId = el.getAttribute('data-pro');
+      startRequest(proId);
+      break;
+    }
+    case 'acceptOffer': acceptOffer(); break;
+    case 'completeJob': openRating(); break;
+    case 'setStar': ratingDraft.stars = parseInt(el.getAttribute('data-n'),10); renderModal(); bindEvents(); break;
+    case 'toggleChk':{
+      const k = el.getAttribute('data-k');
+      ratingDraft[k] = el.checked;
+      break;
+    }
+    case 'submitRating': submitRating(); break;
+    case 'verifyPro':{
+      const id = el.getAttribute('data-pro');
+      session.verifiedOverride[id] = true; saveSession();
+      toast(t('toastVerified')); render(); break;
+    }
+    case 'dismissReport': session.reportDismissed = true; saveSession(); toast(t('toastDismissed')); render(); break;
+    case 'suspendReport': session.reportSuspended = true; saveSession(); toast(t('toastSuspended')); render(); break;
+  }
+}
+
+function doSubmit(emergency){
+  const cat = form.cat || detectCategory(form.desc);
+  const urgency = emergency ? 'high' : detectUrgency(form.desc);
+  const req = {cat, when: emergency ? 'now' : form.when, emergencyOnly: emergency};
+  const scored = computeResults(req);
+  lastResults = {list:scored, cat, urgency, emergencyOnly: emergency, problemText: form.desc};
+  view = 'results';
+  render();
+}
+
+function startRequest(proId){
+  const pro = PROS.find(p=>p.id===proId);
+  activeJob = {proId, stage:'sending'};
+  modal = {type:'job'};
+  renderModal(); bindEvents();
+  setTimeout(()=>{
+    if(!activeJob || activeJob.proId!==proId) return;
+    activeJob.stage = 'offer';
+    activeJob.price = Math.round(((pro.pMin+pro.pMax)/2)/100)*100;
+    modal = {type:'job'};
+    renderModal(); bindEvents();
+  }, 1200);
+}
+
+function acceptOffer(){
+  activeJob.stage = 'inprogress';
+  modal = null;
+  toast(t('toastAccepted'));
+  render();
+}
+
+function openRating(){
+  ratingDraft = {stars:5, onTime:true, priceFair:true, solved:true};
+  modal = {type:'rate'};
+  renderModal(); bindEvents();
+}
+
+function submitRating(){
+  const pro = PROS.find(p=>p.id===activeJob.proId);
+  const stars = ratingDraft.stars || 5;
+  session.completed += 1;
+  session.ratingsSum += stars;
+  session.ratingsCount += 1;
+  if(!session.extraReviews[pro.id]) session.extraReviews[pro.id] = [];
+  session.extraReviews[pro.id].unshift({stars, textIdx: stars>=4 ? (pro.rev[0]||0) : 1});
+  saveSession();
+  activeJob = null;
+  modal = {type:'thanks'};
+  renderModal(); bindEvents();
+}
+
+/* ---------------- Global delegated listeners (installed once) ---------------- */
+document.addEventListener('click', function(e){
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  onAction({currentTarget:el, target:e.target});
+});
+document.addEventListener('input', function(e){
+  if(e.target.id==='descInput') form.desc = e.target.value;
+  if(e.target.id==='budgetInput') form.budget = e.target.value;
+});
+document.addEventListener('change', function(e){
+  if(e.target.id==='citySelect') form.city = e.target.value;
+  if(e.target.id==='whenSelect') form.when = e.target.value;
+});
+
+/* ---------------- Init ---------------- */
+render();
+</script>
+</body>
+</html>

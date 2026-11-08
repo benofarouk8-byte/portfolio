@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scarlet – Voice assistant demo</title>
+<style>
+:root{--bg:#07070a;--panel:#111116;--line:#2a1015;--red:#ff2a45;--red2:#b3001b;--txt:#f4eef0;--mut:#a08a90;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 0,#2a0710 0,var(--bg) 60%) fixed;color:var(--txt);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+header{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--mut)}
+header b{color:var(--red);font-size:18px;letter-spacing:.08em}
+#orb{width:100%;max-width:280px;aspect-ratio:1;margin:0 auto;display:block}
+#status{text-align:center;font-size:13px;color:var(--red);min-height:18px}
+#log{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.m{padding:8px 12px;border-radius:12px;max-width:88%;font-size:14px;line-height:1.5;white-space:pre-line}
+.s{background:#1d0a10;border:1px solid var(--red2);align-self:flex-start}
+.u{background:#1b1b22;align-self:flex-end;color:#ddd}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;color:var(--txt);cursor:pointer}
+.chip{background:transparent;border:1px solid var(--red2);border-radius:20px;padding:7px 12px;font-size:13px}
+.chip:hover,.chip:active{background:var(--red2)}
+.chip.big{background:linear-gradient(135deg,var(--red),var(--red2));border:0;font-weight:600}
+.lbl{font-size:12px;color:var(--mut)}
+form{display:flex;gap:8px}
+input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:12px;font:inherit;font-size:15px}
+input:focus{outline:none;border-color:var(--red)}
+button.ic{width:46px;border-radius:12px;border:1px solid var(--red2);background:var(--panel);font-size:16px}
+button.ic.on{background:var(--red);animation:p 1s infinite}
+@keyframes p{50%{box-shadow:0 0 14px var(--red)}}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){button.ic.on{animation:none}}
+#boot{position:fixed;inset:0;background:var(--bg);z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}
+#boot h1{margin:0;font-size:34px;letter-spacing:.2em;color:var(--red);text-shadow:0 0 24px var(--red2)}
+#boot p{color:var(--mut);margin:0;font-size:14px;max-width:340px;line-height:1.5}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div id="boot">
+  <h1>SCARLET</h1>
+  <p>A voice assistant for the browser. Talk or type, and Scarlet answers out loud. Turn your sound on.</p>
+  <button class="chip big" id="go" style="padding:12px 28px;font-size:15px">Start Scarlet</button>
+</div>
+
+<div class="wrap">
+  <header><span>Voice assistant</span><b>SCARLET</b><button class="chip" id="mute" aria-label="Mute voice" style="padding:4px 10px">Sound on</button></header>
+  <canvas id="orb" width="600" height="600" aria-hidden="true"></canvas>
+  <div id="status" aria-live="polite">Ready</div>
+  <div id="log" aria-live="polite"></div>
+
+  <div class="lbl">Try asking</div>
+  <div class="row">
+    <button class="chip" data-q="what can you do">What can you do?</button>
+    <button class="chip" data-q="time">Time and date</button>
+    <button class="chip" data-q="focus">Focus timer</button>
+    <button class="chip" data-q="joke">Tell a joke</button>
+    <button class="chip" data-q="show notes">My notes</button>
+  </div>
+  <div class="lbl">Play music</div>
+  <div class="row" id="music"></div>
+
+  <form id="f">
+    <button type="button" class="ic" id="mic" aria-label="Speak to Scarlet">Mic</button>
+    <input id="in" placeholder="Type or say something…" autocomplete="off" aria-label="Message">
+    <button class="ic" style="background:var(--red2)" aria-label="Send">Go</button>
+  </form>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const log = $("#log"), stat = $("#status");
+const pick = a => a[Math.floor(Math.random() * a.length)];
+let speaking = false, muted = false, voice = null, focusT = null, userName = "";
+let notes = [];
+try { notes = JSON.parse(localStorage.getItem("scarlet-notes") || "[]"); userName = localStorage.getItem("scarlet-name") || ""; } catch (_) {}
+const save = () => { try { localStorage.setItem("scarlet-notes", JSON.stringify(notes)); localStorage.setItem("scarlet-name", userName); } catch (_) {} };
+const who = () => userName ? ", " + userName : "";
+
+// --- music: opens a Spotify search for the chosen mood ---
+const MOODS = ["Chill", "Lo-fi", "Focus", "Workout", "Pop hits", "Jazz"];
+MOODS.forEach(m => { const b = document.createElement("button"); b.className = "chip"; b.textContent = m; b.onclick = () => handle("play " + m); $("#music").appendChild(b); });
+function music(q){
+  const url = "https://open.spotify.com/search/" + encodeURIComponent(q);
+  setTimeout(() => window.open(url, "_blank", "noopener"), 1000);
+  return "Opening " + q + " on Spotify.";
+}
+
+// --- notes ---
+function addNote(t){ notes.push(t); save(); return "Saved: " + t; }
+function showNotes(){ return notes.length ? "Your notes:\n" + notes.map((n, i) => (i + 1) + ". " + n).join("\n") : "You have no notes yet. Say \"remember\" followed by what you want to save."; }
+
+// --- calculator (digits and operators only) ---
+function calc(expr){
+  const e = expr.replace(/x|times/g, "*").replace(/divided by/g, "/").replace(/plus/g, "+").replace(/minus/g, "-").replace(/[^0-9+\-*/().% ]/g, "").trim();
+  if (!e) return "I couldn't read that calculation. Try \"calculate 12 * 7\".";
+  try { const r = Function('"use strict";return (' + e + ")")(); return isFinite(r) ? e + " = " + +r.toFixed(6) : "That doesn't have a result."; }
+  catch (_) { return "I couldn't work that out. Try \"calculate 12 * 7\"."; }
+}
+
+// --- focus timer ---
+function focus(min = 25){
+  if (focusT){ clearInterval(focusT); focusT = null; stat.textContent = "Ready"; return "Focus timer stopped."; }
+  let s = min * 60;
+  focusT = setInterval(() => {
+    s--; stat.textContent = "Focus " + String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+    if (s <= 0){ clearInterval(focusT); focusT = null; stat.textContent = "Ready"; say("Time's up. Take a five minute break."); }
+  }, 1000);
+  return min + " minute focus timer started. Say \"focus\" again to stop it.";
+}
+
+// --- intent matching ---
+const INTENTS = [
+  [/my name is (\w+)|call me (\w+)/, m => { userName = m[1] || m[2]; userName = userName[0].toUpperCase() + userName.slice(1); save(); return "Nice to meet you, " + userName + "."; }],
+  [/^(hi|hello|hey|salam|salut|bonjour)\b/, () => pick(["Hello" + who() + ". How can I help?", "Hi" + who() + ". What can I do for you?"])],
+  [/what can you do|help|capabilit/, () => "I can:\n• tell the time and date\n• run a focus timer\n• save and read your notes (\"remember buy milk\")\n• calculate (\"calculate 12 * 7\")\n• play music (\"play lo-fi\")\n• tell jokes\nTell me your name with \"my name is …\" and I'll use it."],
+  [/how are you|ça va|ca va/, () => "Running smoothly. How about you" + who() + "?"],
+  [/who are you|your name/, () => "I'm Scarlet, a small voice assistant that runs entirely in your browser."],
+  [/who made|creator|who built|developer/, () => "I was built by Farouk Benouali as a portfolio demo, using plain HTML, CSS and JavaScript with the Web Speech API."],
+  [/time|date|day is it|today/, () => { const d = new Date(); return "It's " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + " on " + d.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + "."; }],
+  [/(?:remember|note|remind me)(?: that| to)? (.+)/, m => addNote(m[1])],
+  [/show notes|my notes|read notes|list notes/, showNotes],
+  [/clear notes|delete notes/, () => { notes = []; save(); return "All notes cleared."; }],
+  [/calculate (.+)|what is ([\d(].+)|compute (.+)/, m => calc(m[1] || m[2] || m[3])],
+  [/play (.+)|music|song|playlist/, m => music(m[1] || "chill playlist")],
+  [/focus|study|pomodoro|timer/, () => focus()],
+  [/joke|funny|blague/, () => pick(["Why do programmers prefer dark mode? Because light attracts bugs.", "I told my code to behave. It returned: undefined.", "There are 10 kinds of people: those who understand binary and those who don't.", "A SQL query walks into a bar, sees two tables and asks: can I join you?"])],
+  [/sad|tired|stress|bad day/, () => "That sounds heavy. Take a breath, drink some water, and do one small thing at a time. Want some calm music or a short focus timer?"],
+  [/thank|merci|shukran/, () => pick(["You're welcome" + who() + ".", "Happy to help."])],
+  [/^(bye|goodbye|see you)/, () => "Goodbye" + who() + ". Talk soon."]
+];
+function think(t){
+  const s = t.toLowerCase();
+  for (const [re, fn] of INTENTS){ const m = s.match(re); if (m) return fn(m); }
+  return "I don't know that one yet. Say \"what can you do\" to see my commands.";
+}
+
+// --- voice output ---
+function loadVoice(){
+  const vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  const f = /female|zira|samantha|aria|jenny|hazel|susan|karen|moira|tessa|fiona|victoria|google uk english female|google us english/i;
+  voice = vs.find(v => /^en/i.test(v.lang) && f.test(v.name)) || vs.find(v => /^en/i.test(v.lang)) || vs[0];
+}
+if ("speechSynthesis" in window){ loadVoice(); speechSynthesis.onvoiceschanged = loadVoice; }
+function say(t){
+  if (!t) return;
+  add("s", t);
+  if (muted || !("speechSynthesis" in window)){ speaking = true; setTimeout(() => speaking = false, Math.min(5000, t.length * 50)); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(t.replace(/\n/g, ". ").replace(/•/g, ""));
+  if (voice) u.voice = voice;
+  u.onstart = () => speaking = true; u.onend = u.onerror = () => speaking = false;
+  speechSynthesis.speak(u);
+}
+function add(c, t){ const d = document.createElement("div"); d.className = "m " + c; d.textContent = t; log.appendChild(d); log.scrollTop = log.scrollHeight; }
+function handle(t){ t = t.trim(); if (!t) return; add("u", t); say(think(t)); }
+
+$("#f").onsubmit = e => { e.preventDefault(); handle($("#in").value); $("#in").value = ""; };
+document.querySelectorAll("[data-q]").forEach(b => b.onclick = () => handle(b.dataset.q));
+$("#mute").onclick = e => { muted = !muted; e.target.textContent = muted ? "Sound off" : "Sound on"; if (muted && "speechSynthesis" in window) speechSynthesis.cancel(); };
+
+// --- microphone ---
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SR) $("#mic").classList.add("hide"); else {
+  const r = new SR(); r.lang = "en-US"; r.interimResults = false; let on = false;
+  r.onresult = e => handle(e.results[0][0].transcript);
+  r.onend = () => { on = false; $("#mic").classList.remove("on"); if (!focusT) stat.textContent = "Ready"; };
+  $("#mic").onclick = () => { if (on) return r.stop(); try { speechSynthesis.cancel(); r.start(); on = true; $("#mic").classList.add("on"); stat.textContent = "Listening…"; } catch (_) {} };
+}
+
+// --- orb ---
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const o = $("#orb").getContext("2d"); let t = 0, amp = 0;
+(function draw(){
+  t += reduce ? 0 : .02; amp += ((speaking ? .6 + .4 * Math.sin(t * 9) * Math.sin(t * 5.3) : .08) - amp) * .15;
+  const W = 600, c = W / 2; o.clearRect(0, 0, W, W);
+  const g = o.createRadialGradient(c, c, 10, c, c, 240 + amp * 40);
+  g.addColorStop(0, "rgba(255,42,69,.55)"); g.addColorStop(.5, "rgba(179,0,27,.25)"); g.addColorStop(1, "rgba(0,0,0,0)");
+  o.fillStyle = g; o.fillRect(0, 0, W, W);
+  for (let k = 0; k < 4; k++){
+    o.beginPath();
+    for (let a = 0; a <= 6.3; a += .05){
+      const rr = 90 + k * 28 + Math.sin(a * (3 + k) + t * (1 + k * .4)) * (6 + amp * 26);
+      const x = c + Math.cos(a) * rr, y = c + Math.sin(a) * rr; a ? o.lineTo(x, y) : o.moveTo(x, y);
+    }
+    o.closePath(); o.strokeStyle = k % 2 ? "rgba(255,255,255,.35)" : "rgba(255,42,69," + (.9 - k * .15) + ")"; o.lineWidth = 2; o.stroke();
+  }
+  o.beginPath(); o.arc(c, c, 52 + amp * 14, 0, 7); o.fillStyle = "#0b0206"; o.fill(); o.strokeStyle = "#ff2a45"; o.lineWidth = 3; o.stroke();
+  o.fillStyle = "#ff2a45"; o.font = "bold 44px Segoe UI,sans-serif"; o.textAlign = "center"; o.textBaseline = "middle"; o.fillText("S", c, c + 2);
+  requestAnimationFrame(draw);
+})();
+
+// --- start ---
+$("#go").onclick = () => {
+  $("#boot").classList.add("hide");
+  say("Hello" + who() + ". I'm Scarlet, a voice assistant. Say hello, or tap one of the suggestions. Ask \"what can you do\" for the full list.");
+};
+</script>
+</body>
+</html>

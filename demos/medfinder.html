@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedFinder — Drug Alternatives & Pharmaceutical Intelligence | By Farouk Benouali</title>
+  <meta name="description" content="Search equivalent generic medications, active molecules, and therapeutic alternatives during drug shortages. Engineered by Farouk Benouali.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230ea5e9'/><text x='50%' y='68%' font-size='55' font-weight='900' fill='white' text-anchor='middle'>Rx</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #07090e;
+      --bg-surface: #0e121a;
+      --bg-card: rgba(18, 24, 35, 0.75);
+      --bg-card-hover: rgba(26, 35, 50, 0.9);
+      --primary: #0284c7;
+      --primary-light: #38bdf8;
+      --accent-crimson: #e11d48;
+      --accent-emerald: #10b981;
+      --border-subtle: rgba(56, 189, 248, 0.18);
+      --border-hover: rgba(56, 189, 248, 0.45);
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-ar: 'Cairo', system-ui, sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0fdf4;
+      --primary: #0284c7;
+      --primary-light: #0369a1;
+      --border-subtle: rgba(2, 132, 199, 0.18);
+      --border-hover: rgba(2, 132, 199, 0.4);
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 4rem;
+    }
+
+    [dir="rtl"] body { font-family: var(--font-ar); }
+
+    .header-bar {
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+    }
+    .author-pill {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(225, 29, 72, 0.12);
+      border: 1px solid rgba(225, 29, 72, 0.25);
+      color: var(--accent-crimson);
+      font-weight: 600;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .btn-lang {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-base);
+      color: var(--text-sub);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-lang.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .hero-box {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 3rem auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-subtle);
+      color: var(--primary-light);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .hero-title span { color: var(--primary-light); }
+    .hero-desc {
+      color: var(--text-sub);
+      font-size: 1.05rem;
+    }
+
+    /* Search Bar Component */
+    .search-wrapper {
+      position: relative;
+      max-width: 680px;
+      margin: 2rem auto 2.5rem auto;
+    }
+    .search-input {
+      width: 100%;
+      padding: 1.1rem 1.25rem 1.1rem 3.25rem;
+      border-radius: 16px;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      color: var(--text-main);
+      font-size: 1.05rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    [dir="rtl"] .search-input {
+      padding: 1.1rem 3.25rem 1.1rem 1.25rem;
+    }
+    .search-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 1.2rem;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    [dir="rtl"] .search-icon {
+      left: auto;
+      right: 1.2rem;
+    }
+
+    /* Category Chips */
+    .filter-chips {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .chip {
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip:hover, .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Grid of Medicines */
+    .med-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .med-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .med-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .med-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .med-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .med-ar-name {
+      font-size: 1.05rem;
+      color: var(--primary-light);
+      font-family: var(--font-ar);
+      margin-top: 2px;
+    }
+    .rx-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .molecule-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+      background: var(--bg-surface);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .med-indication {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .alternatives-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.85rem;
+      margin-top: auto;
+    }
+    .alt-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .alt-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .alt-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--text-main);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 22px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2.2rem;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    [dir="rtl"] .close-btn { right: auto; left: 1.25rem; }
+    .close-btn:hover { color: #fff; background: var(--accent-crimson); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="header-bar">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-icon">Rx</div>
+        <div>
+          <span>MedFinder</span>
+          <span style="font-size: 0.7rem; color: var(--primary-light); font-weight: 500; display: block;">openFDA & BDPM Intelligence</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <span class="author-pill">By Farouk Benouali</span>
+        <button class="btn-lang active" data-lang="en">EN</button>
+        <button class="btn-lang" data-lang="fr">FR</button>
+        <button class="btn-lang" data-lang="ar">عربي</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <main class="container">
+    <div class="hero-box">
+      <div class="hero-badge">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        <span id="badgeText">Instant Generic Molecule Matcher</span>
+      </div>
+      <h1 class="hero-title" id="mainTitle">Find Alternative Medicines & <span>Generic Equivalents</span></h1>
+      <p class="hero-desc" id="mainDesc">Facing medication shortages? Search any brand name in Arabic, French, or English to instantly discover bioequivalent generic substitutes, active molecules, and safety warnings.</p>
+
+      <!-- Search Input -->
+      <div class="search-wrapper">
+        <svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by medicine name, Arabic name, or active molecule (e.g., Omeprazole, باراسيتامول)..." autocomplete="off">
+      </div>
+
+      <!-- Quick Category Chips -->
+      <div class="filter-chips" id="categoryChips">
+        <button class="chip active" data-cat="all">All Medicines</button>
+        <button class="chip" data-cat="cardio">Cardiovascular</button>
+        <button class="chip" data-cat="antibiotic">Antibiotics</button>
+        <button class="chip" data-cat="pain">Pain & Fever</button>
+        <button class="chip" data-cat="gastro">Gastrointestinal</button>
+        <button class="chip" data-cat="diabetes">Diabetes</button>
+      </div>
+    </div>
+
+    <!-- Medicines Grid -->
+    <div class="med-grid" id="medicinesGrid">
+      <!-- Injected via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Details Modal -->
+  <div class="modal-backdrop" id="medModal">
+    <div class="modal-window">
+      <button class="close-btn" id="closeModalBtn">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const MEDICINES = [
+      {
+        id: "1",
+        name: { en: "Omeprazole", fr: "Oméprazole", ar: "أوميبرازول" },
+        generic: "Omeprazole",
+        category: "gastro",
+        form: "Capsule 20mg",
+        indication: {
+          en: "Acid reflux (GERD), heartburn, gastric ulcers, and stomach acid reduction.",
+          fr: "Reflux gastro-œsophagien (RGO), brûlures d'estomac, ulcères gastriques.",
+          ar: "علاج الحموضة، ارتجاع المريء، قرحة المعدة والتقليل من إفرازات حمض المعدة."
+        },
+        alternatives: ["Losec", "Gastrocure", "Mopral", "Omez", "Esomeprazole"],
+        warnings: "Do not crush capsules. Take before meals.",
+        fda_id: "FDA-NDC-44567-89"
+      },
+      {
+        id: "2",
+        name: { en: "Metformin", fr: "Metformine", ar: "ميتفورمين" },
+        generic: "Metformin Hydrochloride",
+        category: "diabetes",
+        form: "Tablet 850mg / 1000mg",
+        indication: {
+          en: "First-line medication for the treatment of type 2 diabetes mellitus.",
+          fr: "Traitement de première intention du diabète de type 2.",
+          ar: "العلاج الأول لمرض السكري من النوع الثاني وتحسين حساسية الأنسولين."
+        },
+        alternatives: ["Glucophage", "Stagid", "Metfor", "Diaformin"],
+        warnings: "Take with meals to minimize gastrointestinal discomfort.",
+        fda_id: "FDA-NDC-10234-55"
+      },
+      {
+        id: "3",
+        name: { en: "Paracetamol", fr: "Paracétamol", ar: "باراسيتامول" },
+        generic: "Acetaminophen / Paracetamol",
+        category: "pain",
+        form: "Tablet 1000mg / 500mg",
+        indication: {
+          en: "Relief of mild to moderate pain and reduction of fever.",
+          fr: "Soulagement des douleurs légères à modérées et fièvre.",
+          ar: "تسكين الآلام الخفيفة والمتوسطة وخفض الحرارة والصداع."
+        },
+        alternatives: ["Doliprane", "Efferalgan", "Panadol", "Dafalgan"],
+        warnings: "Do not exceed 4g per 24 hours. Monitor liver health.",
+        fda_id: "FDA-NDC-55212-01"
+      },
+      {
+        id: "4",
+        name: { en: "Amoxicillin", fr: "Amoxicilline", ar: "أموكسيسيلين" },
+        generic: "Amoxicillin Trihydrate",
+        category: "antibiotic",
+        form: "Capsule / Suspension 500mg - 1g",
+        indication: {
+          en: "Broad-spectrum penicillin antibiotic for ear, throat, and chest infections.",
+          fr: "Antibiotique à large spectre pour infections ORL et bronchiques.",
+          ar: "مضاد حيوي واسع المجال لعلاج التهابات الحلق، الأذن، والجهاز التنفسي."
+        },
+        alternatives: ["Clamoxyl", "Amoxil", "Hiconcil", "Amoxi-Denk"],
+        warnings: "Contraindicated in penicillin allergic patients. Complete entire prescription.",
+        fda_id: "FDA-NDC-66321-44"
+      },
+      {
+        id: "5",
+        name: { en: "Ibuprofen", fr: "Ibuprofène", ar: "إيبوبروفين" },
+        generic: "Ibuprofen",
+        category: "pain",
+        form: "Tablet 400mg",
+        indication: {
+          en: "Non-steroidal anti-inflammatory (NSAID) for inflammation, toothache, and joint pain.",
+          fr: "Anti-inflammatoire non stéroïdien (AINS) pour douleurs dentaires et articulaires.",
+          ar: "مضاد للالتهاب ومسكن لآلام المفاصل، الصداع، وآلام الأسنان."
+        },
+        alternatives: ["Advil", "Nurofen", "Brufen", "Antalfit"],
+        warnings: "Avoid in active gastric ulcers or severe kidney impairment.",
+        fda_id: "FDA-NDC-33981-12"
+      },
+      {
+        id: "6",
+        name: { en: "Amlodipine", fr: "Amlodipine", ar: "املوديبين" },
+        generic: "Amlodipine Besylate",
+        category: "cardio",
+        form: "Tablet 5mg / 10mg",
+        indication: {
+          en: "Calcium channel blocker for high blood pressure and coronary artery disease.",
+          fr: "Inhibiteur calcique pour hypertension artérielle et angor.",
+          ar: "علاج ارتفاع ضغط الدم والوقاية من الذبحة الصدرية."
+        },
+        alternatives: ["Norvasc", "Amlor", "Amlodin", "Tenox"],
+        warnings: "Monitor for ankle swelling (peripheral edema).",
+        fda_id: "FDA-NDC-00231-77"
+      },
+      {
+        id: "7",
+        name: { en: "Atorvastatin", fr: "Atorvastatine", ar: "أتورفاستاتين" },
+        generic: "Atorvastatin Calcium",
+        category: "cardio",
+        form: "Tablet 10mg / 20mg / 40mg",
+        indication: {
+          en: "Statin to lower bad cholesterol (LDL) and reduce risk of cardiovascular events.",
+          fr: "Statine pour réduire le cholestérol LDL et prévenir les AVC/infarctus.",
+          ar: "خفض الكوليسترول الضار والوقاية من الجلطات وأمراض القلب."
+        },
+        alternatives: ["Tahor", "Lipitor", "Ator", "Storvas"],
+        warnings: "Report unexplained muscle pain or weakness immediately.",
+        fda_id: "FDA-NDC-88412-90"
+      },
+      {
+        id: "8",
+        name: { en: "Phloroglucinol", fr: "Phloroglucinol", ar: "فلوروغليسول (سباسفون)" },
+        generic: "Phloroglucinol / Trimethylphloroglucinol",
+        category: "gastro",
+        form: "Tablet 80mg / Lyoc",
+        indication: {
+          en: "Antispasmodic for acute spasms in the abdomen, urinary tract, and bowel.",
+          fr: "Antispasmodique pour douleurs viscérales, coliques et gynécologiques.",
+          ar: "علاج المغص وتقلصات البطن والمسالك البولية والقولون."
+        },
+        alternatives: ["Spasfon", "Spasmocalm", "Meteospasmyl"],
+        warnings: "Dissolve sublingually for accelerated relief.",
+        fda_id: "BDPM-FR-99120"
+      },
+      {
+        id: "9",
+        name: { en: "Augmentin", fr: "Augmentin", ar: "أوغمنتين" },
+        generic: "Amoxicillin + Clavulanic Acid",
+        category: "antibiotic",
+        form: "Tablet 1g (875/125mg)",
+        indication: {
+          en: "Beta-lactamase resistant antibiotic for sinus, dental, and respiratory infections.",
+          fr: "Infections bactériennes résistantes aux pénicillines simples.",
+          ar: "مضاد حيوي قوي معزز بحمض الكلافولانيك لمقاومة البكتيريا المعقدة."
+        },
+        alternatives: ["Curam", "Klavox", "Amoclan", "Augmentin Duo"],
+        warnings: "Take at the start of meals to prevent stomach upset.",
+        fda_id: "FDA-NDC-77412-22"
+      }
+    ];
+
+    let currentLang = "en";
+    let currentCategory = "all";
+
+    const searchInput = document.getElementById("searchInput");
+    const grid = document.getElementById("medicinesGrid");
+    const chips = document.querySelectorAll(".chip");
+    const langBtns = document.querySelectorAll(".btn-lang");
+    const modal = document.getElementById("medModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    function renderMedicines() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      const filtered = MEDICINES.filter(med => {
+        const matchesCategory = currentCategory === "all" || med.category === currentCategory;
+        const matchesQuery = !query || 
+          med.name.en.toLowerCase().includes(query) ||
+          med.name.fr.toLowerCase().includes(query) ||
+          med.name.ar.includes(query) ||
+          med.generic.toLowerCase().includes(query) ||
+          med.alternatives.some(a => a.toLowerCase().includes(query));
+        return matchesCategory && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">
+            <h3>No matching medication found</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Try searching for generic molecules like "Paracetamol", "Amoxicillin", or "Omeprazole".</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(med => {
+        const displayName = med.name[currentLang] || med.name.en;
+        const arName = currentLang !== "ar" ? `<div class="med-ar-name">${med.name.ar}</div>` : "";
+        const desc = med.indication[currentLang] || med.indication.en;
+
+        return `
+          <div class="med-card" onclick="openDetails('${med.id}')">
+            <div class="med-top">
+              <div>
+                <h3 class="med-name">${displayName}</h3>
+                ${arName}
+              </div>
+              <span class="rx-badge">Rx Verified</span>
+            </div>
+            <div class="molecule-tag">🔬 DCI: ${med.generic}</div>
+            <p class="med-indication">${desc}</p>
+            <div class="alternatives-box">
+              <div class="alt-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Available Generic Substitutes:
+              </div>
+              <div class="alt-tags">
+                ${med.alternatives.map(a => `<span class="alt-tag">${a}</span>`).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.openDetails = function(id) {
+      const med = MEDICINES.find(m => m.id === id);
+      if (!med) return;
+
+      const name = med.name[currentLang] || med.name.en;
+      const desc = med.indication[currentLang] || med.indication.en;
+
+      modalContent.innerHTML = `
+        <span style="font-size:0.75rem; text-transform:uppercase; color:var(--primary-light); font-weight:700;">${med.category.toUpperCase()} · ${med.form}</span>
+        <h2 style="font-size:1.8rem; margin:0.3rem 0; color:var(--text-main);">${name}</h2>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">Active Molecule (DCI): ${med.generic}</div>
+        
+        <div style="background:var(--bg-card); padding:1rem; border-radius:12px; border:1px solid var(--border-subtle); margin-bottom:1.25rem;">
+          <h4 style="color:var(--primary-light); font-size:0.9rem; margin-bottom:0.25rem;">Therapeutic Indications</h4>
+          <p style="font-size:0.92rem; color:var(--text-sub);">${desc}</p>
+        </div>
+
+        <div style="background:rgba(225,29,72,0.1); padding:1rem; border-radius:12px; border:1px solid rgba(225,29,72,0.25); margin-bottom:1.25rem;">
+          <h4 style="color:var(--accent-crimson); font-size:0.9rem; margin-bottom:0.25rem;">⚠️ Safety & Usage Warnings</h4>
+          <p style="font-size:0.92rem; color:var(--text-sub);">${med.warnings}</p>
+        </div>
+
+        <div>
+          <h4 style="font-size:1rem; margin-bottom:0.5rem; color:var(--text-main);">Equivalent Generics for Shortage Replacement</h4>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            ${med.alternatives.map(a => `<span style="padding:0.4rem 0.8rem; border-radius:8px; background:var(--bg-base); border:1px solid var(--border-hover); font-weight:600; font-size:0.85rem;">${a}</span>`).join("")}
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted);">
+          <span>Registry ID: ${med.fda_id}</span>
+          <span>Engineered by Farouk Benouali</span>
+        </div>
+      `;
+
+      modal.classList.add("active");
+    };
+
+    closeModalBtn.addEventListener("click", () => modal.classList.remove("active"));
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("active"); });
+
+    searchInput.addEventListener("input", renderMedicines);
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentCategory = chip.dataset.cat;
+        renderMedicines();
+      });
+    });
+
+    langBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        langBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentLang = btn.dataset.lang;
+        document.documentElement.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+        renderMedicines();
+      });
+    });
+
+    renderMedicines();
+  </script>
+</body>
+</html>
+
