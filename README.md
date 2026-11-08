@@ -57,7 +57,12 @@ Each project has its own deep-dive on the live site (challenge, architecture, hi
 
 ---
 
-## Repo layout
+---
+
+<details>
+<summary><strong>Repo structure, running it locally, deploying</strong></summary>
+
+<br>
 
 ```
 portfolio/
@@ -71,23 +76,15 @@ portfolio/
     └── scarlet.html
 ```
 
-## Running it locally
-
+**Run it locally**
 ```bash
-# simplest: just open it
-open index.html          # or double-click it
-
-# or serve it (recommended for the demos to behave correctly)
-python -m http.server 3000
+open index.html                # simplest — just open it
+python -m http.server 3000     # or serve it, then visit localhost:3000
 ```
 
-Then visit `http://localhost:3000`.
+**Deploy your own copy** — GitHub Pages (Settings → Pages → Branch `main`), [Vercel](https://vercel.com), or drag the folder onto [Netlify Drop](https://app.netlify.com/drop).
 
-## Deploying your own copy
-
-- **GitHub Pages** — Settings → Pages → Branch `main` → Save. Free, zero config.
-- **Vercel** — `vercel` from this folder, or import the repo at [vercel.com](https://vercel.com).
-- **Netlify** — drag the folder onto [app.netlify.com/drop](https://app.netlify.com/drop).
+</details>
 
 ---
 
