@@ -4,7 +4,7 @@
 
 # Farouk Benouali
 
-**Full-Stack Web & PC Desktop Software Engineer** · Aïn Témouchent, Algeria 🇩🇿
+**Full-Stack Web & Desktop Developer** · Aïn Témouchent, Algeria 🇩🇿
 
 [![Live Site](https://img.shields.io/badge/Live-benofarouk8--byte.github.io-C41E3A?style=flat-square)](https://benofarouk8-byte.github.io/portfolio/)
 [![Email](https://img.shields.io/badge/Email-benofarouk8%40gmail.com-181717?style=flat-square&logo=gmail&logoColor=white)](mailto:benofarouk8@gmail.com)
@@ -27,9 +27,9 @@ This is the source for my personal portfolio — a single-page site I built to s
 | Project | Category | What it does |
 |---|---|---|
 | **WinWin DZ** | Full-Stack & Web | Marketplace where people post problems and local pros bid to solve them — Algeria-focused. |
-| **Retail POS & Inventory Suite** | Desktop | Offline-first point-of-sale and stock management app for small retail shops. |
+| **Retail POS & Inventory Suite** | Desktop (React + Electron) | Offline-first point-of-sale and stock management app for small retail shops. |
 | **[MedFinder](demos/medfinder.html)** | AI & Data | Looks up drug alternatives using the openFDA API — try the live demo in `demos/`. |
-| **Lycée Ahmed Belhadj Said ERP** | Desktop | School management system covering grades, schedules and student records. |
+| **Lycée Ahmed Belhadj Said ERP** | Full-Stack Web | School management system covering grades, schedules and student records. |
 | **[SCARLET](demos/scarlet.html)** | AI & Data | In-browser voice assistant — notes, timer, calculator and music, controlled by voice. |
 | **CampusConnect DZ & StudyLab** | Full-Stack & Web | Student ecosystem pairing a campus social network with a study/resource hub. |
 | **3D Building Visualizer** | Full-Stack & Web | Interactive 3D spatial viewer for architectural building models. |
@@ -53,6 +53,7 @@ Each project has its own deep-dive on the live site (challenge, architecture, hi
 
 - **Frontend:** HTML5, CSS3 (custom properties, RTL), JavaScript (ES6+), React, Tailwind CSS
 - **Backend:** Node.js, REST APIs, SQLite, offline-first patterns
+- **Desktop:** Electron
 - **Tooling:** Git/GitHub, Vite, Web Speech API
 
 ---

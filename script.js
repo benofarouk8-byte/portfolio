@@ -5,10 +5,10 @@
 
 const translations = {
   en: {
-    roleTitle: "Full-Stack Web & PC Desktop Software Engineer | 3D Architecture",
+    roleTitle: "Full-Stack Web & Desktop Developer | 3D Architecture",
     openToWork: "Open for Opportunities & Projects",
     heroGreeting: "Hi, I am",
-    heroDescription: "Software engineer and passionate builder from Aïn Témouchent, Algeria. Specializing in high-performance PC desktop applications (Flutter Desktop, Electron), full-stack web platforms (React, Next.js), and actively preparing to pioneer 3D building architecture & spatial systems.",
+    heroDescription: "Software engineer and passionate builder from Aïn Témouchent, Algeria. Specializing in full-stack web platforms (React, Next.js), Electron desktop applications, and actively preparing to pioneer 3D building architecture & spatial systems.",
     exploreProjects: "Explore Projects",
     getInTouch: "Get in Touch",
     location: "Aïn Témouchent, Algeria",
@@ -30,12 +30,12 @@ const translations = {
     viewDetails: "Architecture & Details",
     aboutTitle: "About Me",
     aboutHeading: "Architecting resilient PC desktop, web, and future 3D spatial software from Algeria to the world.",
-    aboutP1: "I am a software engineer with hands-on expertise building end-to-end applications from scratch. My focus centers on reactive PC desktop ecosystems (Flutter Desktop, Electron, Realm) and modern web platforms with React 18, TypeScript, and Next.js.",
+    aboutP1: "I am a software engineer with hands-on expertise building end-to-end applications from scratch. My focus centers on modern web platforms with React 18, TypeScript, and Next.js, extended to Electron-based desktop applications.",
     aboutP2: "Beyond interface design, I engineer robust data pipelines and interactive systems—such as parsing 130,000+ openFDA medical records with Python and building marketplace match algorithms. Currently, I am expanding my technical frontiers into 3D building architecture, CAD/BIM systems, and spatial web graphics.",
     aboutH1Title: "Problem Solver",
     aboutH1Desc: "Crafting pragmatic digital tools that solve daily problems.",
     aboutH2Title: "PC & Web Specialist",
-    aboutH2Desc: "Fluent in native PC desktop applications and cutting-edge web ecosystems.",
+    aboutH2Desc: "Fluent in cutting-edge web ecosystems and Electron desktop applications.",
     skillsTitle: "Core Competencies",
     skillsSubtitle: "Languages, frameworks and tools I use to build websites.",
     catFrontend: "Frontend",
@@ -48,14 +48,14 @@ const translations = {
     t1Title: "WinWin DZ & Scalable Marketplace Architecture",
     t1Desc: "Designed an Algerian on-demand problem-solving marketplace with trilingual RTL support and dynamic provider ranking algorithms.",
     t2Year: "2026",
-    t2Title: "Dual POS Engine (Flutter & React/Electron)",
-    t2Desc: "Engineered offline-first Point of Sale desktop suites with Realm DB, barcode-ready workflows, and real-time inventory tracking.",
+    t2Title: "POS Engine (React & Electron)",
+    t2Desc: "Engineered an offline-first Point of Sale desktop suite with local SQLite storage, barcode-ready workflows, and real-time inventory tracking.",
     t3Year: "2026",
     t3Title: "MedFinder & Data Mining Pipeline",
     t3Desc: "Built an openFDA pharmaceutical database ingestion pipeline processing 130K+ drug labels for shortage alternative discovery.",
     t4Year: "2025 - 2026",
     t4Title: "Lycée Ahmed Belhadj Said ERP System",
-    t4Desc: "Architected a multi-tier Flutter desktop/mobile school management platform for grading, schedules, and inventory.",
+    t4Desc: "Architected a multi-tier web-based school management platform for grading, schedules, and inventory.",
     contactTitle: "Let's Build Something Together",
     contactSubtitle: "Have an exciting project, freelance opportunity, or software engineering role? Let's connect.",
     contactEmailLabel: "Direct Email",
@@ -75,10 +75,10 @@ const translations = {
     modalHighlightsTitle: "Key Technical Highlights"
   },
   fr: {
-    roleTitle: "Développeur Logiciel Web Full-Stack & Applications PC | Architecture 3D",
+    roleTitle: "Développeur Web Full-Stack & Applications Desktop | Architecture 3D",
     openToWork: "Disponible pour opportunités & projets",
     heroGreeting: "Bonjour, je suis",
-    heroDescription: "Ingénieur logiciel et développeur passionné basé à Aïn Témouchent, Algérie. Spécialisé dans les applications PC de bureau (Flutter Desktop, Electron), les systèmes web full-stack modernes (React, Next.js) et en préparation active pour l'architecture 3D et les technologies spatiales.",
+    heroDescription: "Ingénieur logiciel et développeur passionné basé à Aïn Témouchent, Algérie. Spécialisé dans les systèmes web full-stack modernes (React, Next.js), les applications desktop avec Electron, et en préparation active pour l'architecture 3D et les technologies spatiales.",
     exploreProjects: "Découvrir mes projets",
     getInTouch: "Me contacter",
     location: "Aïn Témouchent, Algérie",
@@ -100,12 +100,12 @@ const translations = {
     viewDetails: "Architecture & Détails",
     aboutTitle: "À propos de moi",
     aboutHeading: "Concevoir des logiciels PC de bureau, des plateformes web et des systèmes 3D innovants.",
-    aboutP1: "Je suis un développeur logiciel avec une solide expérience dans la conception d'applications complètes. Mon expertise s'articule autour des écosystèmes PC de bureau (Flutter Desktop, Electron, Realm) et du web moderne avec React 18, TypeScript et Next.js.",
+    aboutP1: "Je suis un développeur logiciel avec une solide expérience dans la conception d'applications complètes. Mon expertise s'articule autour du web moderne avec React 18, TypeScript et Next.js, étendue aux applications desktop avec Electron.",
     aboutP2: "Au-delà de l'interface, je conçois des pipelines de données (traitement de 130 000+ notices médicales openFDA avec Python) et je prépare activement mon expansion dans les technologies de visualisation architecturale 3D, BIM et spatial web.",
     aboutH1Title: "Orienté Solutions",
     aboutH1Desc: "Création d'outils numériques pragmatiques résolvant des besoins réels.",
     aboutH2Title: "Spécialiste PC & Web",
-    aboutH2Desc: "Maîtrise approfondie des applications PC de bureau et du web moderne.",
+    aboutH2Desc: "Maîtrise approfondie du web moderne et des applications desktop avec Electron.",
     skillsTitle: "Compétences Techniques",
     skillsSubtitle: "Langages, frameworks et outils que j'utilise pour créer des sites web.",
     catFrontend: "Frontend",
@@ -118,14 +118,14 @@ const translations = {
     t1Title: "WinWin DZ & Marketplace de Services",
     t1Desc: "Conception d'une plateforme algérienne de mise en relation avec support trilingue RTL et algorithme de scoring de prestataires.",
     t2Year: "2026",
-    t2Title: "Suite POS Double Moteur (Flutter & React/Electron)",
-    t2Desc: "Développement d'une application de caisse et de gestion des stocks hors-ligne avec Realm DB et reporting en temps réel.",
+    t2Title: "Suite POS (React & Electron)",
+    t2Desc: "Développement d'une application de caisse et de gestion des stocks hors-ligne avec base SQLite locale et reporting en temps réel.",
     t3Year: "2026",
     t3Title: "MedFinder & Pipeline de Données Santé",
     t3Desc: "Automatisation de l'ingestion de 130K+ notices de médicaments openFDA pour trouver des alternatives aux pénuries.",
     t4Year: "2025 - 2026",
     t4Title: "ERP Lycée Ahmed Belhadj Said",
-    t4Desc: "Conception d'une plateforme de gestion scolaire Flutter desktop/mobile pour les notes, emplois du temps et inventaire.",
+    t4Desc: "Conception d'une plateforme web de gestion scolaire multi-niveaux pour les notes, emplois du temps et inventaire.",
     contactTitle: "Construisons un projet ensemble",
     contactSubtitle: "Vous avez un projet innovant, une opportunité freelance ou un poste en développement logiciel ? Échangeons.",
     contactEmailLabel: "Email Direct",
@@ -145,10 +145,10 @@ const translations = {
     modalHighlightsTitle: "Points Techniques Majeurs"
   },
   ar: {
-    roleTitle: "مطور برمجيات ويب وتطبيقات حاسوب مكتبي (PC) | متخصص قادم في العمارة ثلاثية الأبعاد (3D Architecture)",
+    roleTitle: "مطور ويب شامل (Full-Stack) وتطبيقات سطح المكتب | متخصص قادم في العمارة ثلاثية الأبعاد (3D Architecture)",
     openToWork: "متاح للمشاريع والفرص المهنية",
     heroGreeting: "مرحباً، أنا",
-    heroDescription: "مهندس ومطور برمجيات من عين تموشنت، الجزائر. متخصص في بناء برمجيات سطح المكتب للحواسيب (Flutter Desktop, Electron)، وتطبيقات الويب الشاملة الحديثة (React, Next.js)، مع التحضير الفعلي للانطلاق في هندسة النمذجة المعمارية ثلاثية الأبعاد (3D Building Architecture & WebGL).",
+    heroDescription: "مهندس ومطور برمجيات من عين تموشنت، الجزائر. متخصص في بناء تطبيقات الويب الشاملة الحديثة (React, Next.js)، وتطبيقات سطح المكتب باستخدام Electron، مع التحضير الفعلي للانطلاق في هندسة النمذجة المعمارية ثلاثية الأبعاد (3D Building Architecture & WebGL).",
     exploreProjects: "استعراض المشاريع",
     getInTouch: "تواصل معي",
     location: "عين تموشنت، الجزائر",
@@ -170,12 +170,12 @@ const translations = {
     viewDetails: "المعمارية والتفاصيل",
     aboutTitle: "نبذة عني",
     aboutHeading: "أصمم وأبني برمجيات سطح مكتب للحواسيب وحلول الويب وتقنيات 3D المبتكرة من الجزائر إلى العالم.",
-    aboutP1: "أنا مطور برمجيات ذو خبرة تطبيقية في بناء الأنظمة البرمجية للحواسيب والويب من الصفر. تمتد خبرتي من تطوير برامج سطح المكتب عالية الأداء للحواسيب عبر Flutter Desktop و Electron و Realm إلى بناء واجهات الويب المعاصرة بأحدث تقنيات React 18 و TypeScript و Next.js.",
+    aboutP1: "أنا مطور برمجيات ذو خبرة تطبيقية في بناء الأنظمة البرمجية من الصفر. تتركز خبرتي في بناء واجهات الويب المعاصرة بأحدث تقنيات React 18 و TypeScript و Next.js، بالإضافة إلى تطبيقات سطح المكتب باستخدام Electron.",
     aboutP2: "لا أكتفي بالواجهات، بل أهتم بهندسة ومعالجة البيانات الضخمة (مثل استخراج 130 ألف دواء من openFDA بلغة Python)، وأستعد حالياً لدمج برمجيات الويب مع تقنيات النمذجة المعمارية ثلاثية الأبعاد (3D Architecture & Three.js).",
     aboutH1Title: "حل المشكلات الواقعية",
     aboutH1Desc: "تحويل التحديات اليومية إلى أدوات وحلول برمجية عملية وسهلة الاستخدام.",
     aboutH2Title: "تطبيقات الحاسوب والويب",
-    aboutH2Desc: "إتقان تطبيقات سطح المكتب الأصلية وتطبيقات الويب الحديثة على حد سواء.",
+    aboutH2Desc: "إتقان تطبيقات الويب الحديثة وتطبيقات سطح المكتب باستخدام Electron.",
     skillsTitle: "المهارات والتقنيات",
     skillsSubtitle: "اللغات وأطر العمل والأدوات التي أستخدمها لبناء مواقع الويب.",
     catFrontend: "الواجهات الأمامية",
@@ -188,14 +188,14 @@ const translations = {
     t1Title: "منصة WinWin DZ وسوق الخدمات الجزائري",
     t1Desc: "تصميم منصة جزائرية ذكية للربط بين طالبي الخدمات والحرفيين مع دعم ثلاثي اللغات وخوارزمية مطابقة وترتيب متطورة.",
     t2Year: "2026",
-    t2Title: "منظومة نقاط البيع POS المزدوجة (Flutter & Electron)",
-    t2Desc: "تطوير نظام محاسبة وإدارة مخزون احترافي لسطح المكتب يعمل دون اتصال بالإنترنت بالاعتماد على قاعدة بيانات Realm.",
+    t2Title: "منظومة نقاط البيع POS (React & Electron)",
+    t2Desc: "تطوير نظام محاسبة وإدارة مخزون احترافي لسطح المكتب يعمل دون اتصال بالإنترنت بالاعتماد على قاعدة بيانات SQLite محلية.",
     t3Year: "2026",
     t3Title: "مشروع MedFinder وخط معالجة بيانات الأدوية",
     t3Desc: "معالجة واستيراد أكثر من 130 ألف مستحضر طبي لمساعدة المرضى والصيادلة على إيجاد البدائل المتاحة فوراً.",
     t4Year: "2025 - 2026",
     t4Title: "نظام إدارة ثانوية أحمد بلحاج سعيد",
-    t4Desc: "هندسة تطبيق متعدد المستويات لإدارة النقاط وجداول الحصص والمخزون المدرسي بتقنية Flutter وقواعد بيانات SQLite.",
+    t4Desc: "هندسة منصة ويب متعددة المستويات لإدارة النقاط وجداول الحصص والمخزون المدرسي.",
     contactTitle: "لنبدأ العمل على مشروعك القادم",
     contactSubtitle: "هل لديك فكرة مشروع مبتكرة، فرصة عمل حر، أو منصب هندسي؟ يسعدني التواصل معك.",
     contactEmailLabel: "البريد الإلكتروني المباشر",
@@ -275,55 +275,55 @@ const projectsData = [
   {
     id: "pos",
     category: "flutter",
-    badge: "Dual Implementation",
+    badge: "Desktop App",
     title: {
       en: "Retail POS & Inventory Desktop Suite",
       fr: "Suite Point de Vente (POS) & Gestion de Stock",
       ar: "منظومة نقاط البيع (POS) وإدارة المخزون لسطح المكتب"
     },
     shortDesc: {
-      en: "A robust, offline-first point-of-sale desktop application built in Flutter Desktop (Riverpod, Realm) and engineered in parallel with React 18, TypeScript, Electron, and Vite.",
-      fr: "Application de caisse et de gestion des stocks moderne pour desktop, développée en Flutter (Riverpod, Realm) et parallèlement en React 18, TypeScript et Electron.",
-      ar: "برنامج محاسبة ونقاط بيع وإدارة مخزون لسطح المكتب يعمل بكفاءة دون اتصال بالإنترنت، مطور بنسختين متوازيتين عبر Flutter و React/Electron."
+      en: "A robust, offline-first point-of-sale desktop application built with React 18, TypeScript, and Electron, backed by a local SQLite database for full offline reliability.",
+      fr: "Application de caisse et de gestion des stocks moderne pour desktop, développée avec React 18, TypeScript et Electron, avec une base SQLite locale pour un fonctionnement hors-ligne fiable.",
+      ar: "برنامج محاسبة ونقاط بيع وإدارة مخزون لسطح المكتب يعمل بكفاءة دون اتصال بالإنترنت، مطور باستخدام React وTypeScript وElectron مع قاعدة بيانات SQLite محلية."
     },
     previewType: "illustration",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 8h4m-4 3h6m4-3h2m-2 3h2"/></svg>`,
-    tags: ["Flutter Desktop", "Riverpod", "Realm DB", "React 18", "TypeScript", "Electron", "Vite"],
+    tags: ["React 18", "TypeScript", "Electron", "SQLite", "Vite", "Tailwind CSS"],
     demoUrl: null,
     githubUrl: "https://github.com/benofarouk8-byte",
     details: {
       en: {
         problem: "Retailers in retail and grocery stores need instant responsiveness during checkouts with zero downtime if the internet disconnects, alongside strict inventory synchronization.",
-        solution: "Built a dual-architecture desktop POS system providing barcode-speed cart management, low-stock threshold alerts, daily revenue analytics, and offline-first Realm database synchronization.",
+        solution: "Built an offline-first desktop POS system with React 18, TypeScript, and Electron, providing barcode-speed cart management, low-stock threshold alerts, daily revenue analytics, and local SQLite synchronization.",
         highlights: [
-          "Built in Flutter Desktop using Riverpod state management and Realm local embedded database.",
-          "Parallel production version built with React 18, TypeScript, Tailwind, Vite, and Electron desktop shell.",
+          "Built with React 18, TypeScript, and Electron, packaged as a native desktop app for Windows and macOS.",
+          "Local SQLite database keeps the app fully functional offline, syncing automatically once back online.",
           "Sub-millisecond barcode lookup, thermal receipt formatting, and multi-currency support.",
           "Live inventory level monitoring with automated warning badges (stable, low, critical)."
         ],
-        stack: ["Flutter 3.x Desktop (Windows & macOS)", "Riverpod 2.4 & GoRouter 12", "Realm Embedded Database 1.4", "Electron 31 & React 18", "TypeScript 5.6 & Vite"]
+        stack: ["React 18 & TypeScript", "Electron 31", "SQLite", "Vite", "Tailwind CSS"]
       },
       fr: {
         problem: "Les commerçants ont besoin d'un encaissement ultra-rapide sans dépendre d'une connexion internet, avec un suivi rigoureux des stocks en temps réel.",
-        solution: "Conception d'une application de bureau à double implémentation (Flutter & Electron) garantissant un fonctionnement 100% hors-ligne avec base Realm.",
+        solution: "Conception d'une application de bureau hors-ligne avec React 18, TypeScript et Electron, garantissant un encaissement rapide et une synchronisation SQLite locale.",
         highlights: [
-          "Implémentation Flutter Desktop avec Riverpod et base Realm intégrée.",
-          "Version React 18 + TypeScript encapsulée sous Electron.",
+          "Développée avec React 18, TypeScript et Electron, empaquetée en application de bureau native pour Windows et macOS.",
+          "Base de données SQLite locale permettant un fonctionnement 100% hors-ligne avec synchronisation automatique.",
           "Recherche de codes-barres instantanée et impression de tickets de caisse.",
           "Suivi en direct des alertes de stock faible et tableau de bord des ventes."
         ],
-        stack: ["Flutter Desktop", "Riverpod & GoRouter", "Realm Database", "React 18 & Electron", "TypeScript & Vite"]
+        stack: ["React 18 & TypeScript", "Electron", "SQLite", "Vite", "Tailwind CSS"]
       },
       ar: {
         problem: "يحتاج أصحاب المتاجر ومحلات التجزئة إلى برنامج سريع جداً لعمليات البيع وإدارة الفواتير يعمل بكفاءة تامة دون انقطاع حتى في حال غياب الإنترنت.",
-        solution: "تطوير منظومة نقاط بيع مكتبية متكاملة تدعم العمل غير المتصل بالإنترنت بفضل قاعدة بيانات Realm المدمجة، مع تتبع دقيق للمخزون وحساب الأرباح.",
+        solution: "تطوير منظومة نقاط بيع مكتبية متكاملة باستخدام React وTypeScript وElectron، تدعم العمل غير المتصل بالإنترنت بفضل قاعدة بيانات SQLite المحلية، مع تتبع دقيق للمخزون وحساب الأرباح.",
         highlights: [
-          "تطبيق مكتبي متين مبني بتقنية Flutter Desktop مع إدارة حالة متقدمة عبر Riverpod.",
-          "نسخة موازية مبنية عبر React 18 و TypeScript مدمجة داخل إطار عمل Electron المكتبي.",
+          "تطبيق مكتبي مبني باستخدام React وTypeScript وElectron، متوافق مع أنظمة ويندوز وماك.",
+          "قاعدة بيانات SQLite محلية تتيح العمل الكامل دون إنترنت مع مزامنة تلقائية عند عودة الاتصال.",
           "قراءة سريعة للباركود، إصدار الفواتير الفورية، وتتبع حركات الخزينة والمبيعات.",
           "نظام تنبيهات ذكي لمستويات المخزون (متوفر، قليل، حرج) لضمان عدم نفاد البضائع."
         ],
-        stack: ["Flutter Desktop لأنظمة ويندوز وماك", "قاعدة بيانات Realm المدمجة", "Riverpod 2.4 لإدارة الحالة", "React 18 مع TypeScript و Electron", "Vite للبناء السريع"]
+        stack: ["React 18 و TypeScript", "Electron", "قاعدة بيانات SQLite", "Vite"]
       }
     }
   },
@@ -392,48 +392,48 @@ const projectsData = [
       ar: "منظومة ثانوية أحمد بلحاج سعيد — نظام الإدارة المدرسية المتكامل"
     },
     shortDesc: {
-      en: "A multi-tier institutional management system developed in Flutter for high school administration, unifying grade recording, class timetables, and campus inventory tracking.",
-      fr: "Système de gestion institutionnel multi-niveaux développé en Flutter pour l'administration de lycée, unifiant la gestion des notes, des emplois du temps et du matériel.",
-      ar: "نظام إداري وأكاديمي متعدد المستويات مطور عبر تقنية Flutter لإدارة المرحلة الثانوية، يشمل رصد الدرجات، تنظيم جداول الحصص، وجرد المعدات المدرسية."
+      en: "A multi-tier institutional web management system built for high school administration, unifying grade recording, class timetables, and campus inventory tracking.",
+      fr: "Système de gestion institutionnel web multi-niveaux conçu pour l'administration de lycée, unifiant la gestion des notes, des emplois du temps et du matériel.",
+      ar: "نظام إداري وأكاديمي متعدد المستويات مبني كمنصة ويب لإدارة المرحلة الثانوية، يشمل رصد الدرجات، تنظيم جداول الحصص، وجرد المعدات المدرسية."
     },
     previewType: "illustration",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="13" y2="11"/></svg>`,
-    tags: ["Flutter", "Dart", "Provider", "Sqflite", "Local SQLite", "Arabic Localization"],
+    tags: ["React", "Node.js", "SQLite", "REST API", "Arabic Localization"],
     demoUrl: null,
     githubUrl: "https://github.com/benofarouk8-byte",
     details: {
       en: {
         problem: "Secondary schools often struggle with fragmented paperwork, lost inventory records, and manual report card generation.",
-        solution: "Engineered a localized Arabic desktop and mobile application providing centralized role-based management for teachers, administrators, and inventory staff.",
+        solution: "Engineered a localized Arabic web application providing centralized role-based management for teachers, administrators, and inventory staff.",
         highlights: [
           "Complete student grading registry with automated average calculations and report card exports.",
           "Visual schedule organizer resolving teacher conflicts and classroom room assignments.",
           "Physical inventory audit module recording scientific lab equipment and educational materials.",
           "Full Arabic interface customized to Algerian ministry educational nomenclature."
         ],
-        stack: ["Flutter 3.5 & Dart SDK", "Provider state management pattern", "Sqflite embedded database", "Intl localization & Arabic fonts"]
+        stack: ["React & TypeScript", "Node.js REST API", "SQLite database", "Arabic localization & fonts"]
       },
       fr: {
         problem: "Les établissements secondaires souffrent souvent d'une gestion administrative manuelle et de la perte des inventaires d'équipements.",
-        solution: "Création d'une application Flutter ergonomique et bilingue pour centraliser les notes des élèves, les plannings et le matériel pédagogique.",
+        solution: "Création d'une application web ergonomique et bilingue pour centraliser les notes des élèves, les plannings et le matériel pédagogique.",
         highlights: [
           "Gestion centralisée des notes et calcul automatique des moyennes scolaires.",
           "Générateur d'emplois du temps évitant les conflits de salles et d'enseignants.",
           "Module de suivi et d'inventaire des laboratoires scientifiques et salles informatiques.",
           "Interface entièrement adaptée en Arabe selon les standards éducatifs."
         ],
-        stack: ["Flutter 3.5 & Dart", "Provider", "Sqflite", "Intl & polices arabes Google Fonts"]
+        stack: ["React & TypeScript", "Node.js REST API", "SQLite", "Polices arabes Google Fonts"]
       },
       ar: {
         problem: "تعاني المؤسسات التعليمية من تشتت الملفات الورقية وبطء إعداد كشوف النقاط ومتابعة جرد المعامل والمعدات المدرسية.",
-        solution: "تصميم تطبيق متكامل موجه للمؤسسات الثانوية بالجزائر، يوفر منصة رقمية لإدارة كشوف الدرجات، الجداول الزمنية، وحصر العتاد المدرسي بكل دقة.",
+        solution: "تصميم منصة ويب متكاملة موجهة للمؤسسات الثانوية بالجزائر، توفر إدارة رقمية لكشوف الدرجات، الجداول الزمنية، وحصر العتاد المدرسي بكل دقة.",
         highlights: [
           "رصد درجات الفصول وحساب المعدلات الفردية والجماعية وطباعة الكشوف.",
           "تنظيم جداول الحصص الأسبوعية ومنع تضارب القاعات وتوزيع الأساتذة.",
           "نظام جرد عتاد المخابر العلمية والأجهزة التعليمية ومتابعة حالتها الدورية.",
           "واجهة عربية أصيلة ومصممة وفق المصطلحات المعتمدة في قطاع التربية والتعليم."
         ],
-        stack: ["Flutter 3.5 & Dart", "Provider لإدارة الحالة بكفاءة", "قاعدة بيانات Sqflite المحلية", "حزمة Intl للتعريب ودعم اللغة العربية"]
+        stack: ["React و TypeScript", "واجهة برمجية REST عبر Node.js", "قاعدة بيانات SQLite", "دعم كامل للغة العربية"]
       }
     }
   },
